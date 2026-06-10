@@ -1,0 +1,12 @@
+/target
+**/*.rs.bk
+*.pdb
+
+# npm wrapper build/test artifacts
+/npm/node_modules
+/npm/bin/agent-trace
+/npm/bin/agent-trace.exe
+
+# Local scratch / generated artifact images
+/scratch
+*.tmp.png
