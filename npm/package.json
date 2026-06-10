@@ -1,0 +1,32 @@
+{
+  "name": "agent-trace",
+  "version": "0.0.0",
+  "description": "Machine-first CLI that scores AI-authored SVGs against raster references: render, SSIM/pixel diff, localized error regions, and vision-friendly comparison images.",
+  "keywords": [
+    "svg",
+    "agent",
+    "raster",
+    "ssim",
+    "diff",
+    "cli"
+  ],
+  "homepage": "https://github.com/wyrd-company/agent-trace",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyrd-company/agent-trace.git"
+  },
+  "license": "MIT OR Apache-2.0",
+  "bin": {
+    "agent-trace": "bin/agent-trace.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "files": [
+    "bin/agent-trace.js",
+    "install.js"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}
