@@ -4,4 +4,5 @@
 
 pub mod io;
 pub mod output;
+pub mod render;
 pub mod util;
