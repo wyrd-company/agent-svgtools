@@ -7,4 +7,5 @@ pub mod io;
 pub mod output;
 pub mod palette;
 pub mod render;
+pub mod tracing;
 pub mod util;
