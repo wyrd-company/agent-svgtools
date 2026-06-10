@@ -8,5 +8,6 @@ pub mod io;
 pub mod output;
 pub mod palette;
 pub mod render;
+pub mod skill;
 pub mod tracing;
 pub mod util;
