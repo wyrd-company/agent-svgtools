@@ -1,137 +1,152 @@
 # agent-trace
 
-An open source CLI tool that closes the feedback loop for AI coding agents that author SVG files from raster reference images (e.g., recreating a logo as SVG). Agents are good at writing clean, semantic SVG but cannot verify their output visually. This tool gives them rendering, scoring, localized diffs, and vision-model-friendly comparison images.
+An open-source CLI that closes the feedback loop for AI coding agents authoring
+SVG files from raster reference images (e.g. recreating a logo as SVG). Agents
+write clean, semantic SVG but cannot *see* their output. `agent-trace` gives
+them rendering, scoring, localized diffs, and vision-model-friendly comparison
+images — all machine-first, so the output drops straight back into an
+iterate-and-improve loop.
 
-# Prompt
+- **Pure Rust, single static binary**, no C dependencies.
+- **Machine-first output**: TOON by default (token-efficient for LLMs), with
+  JSON, JSONL, and pretty-printing on tap.
+- **Scoring engine**: pixel match %, SSIM, a combined score, and ranked error
+  regions with pixel-coordinate bounding boxes.
+- **Artifacts**: diff heatmaps, labeled side-by-side panels, onion-skin blends,
+  and coordinate grids — built for a vision model to read.
 
-Build an open source CLI tool in Rust called `agent-trace`.
+## Install
 
-The tool is machine-first: machine output by default, designed to be consumed by an agent in an iterate-and-improve loop.
+```bash
+# crates.io
+cargo install agent-trace
 
-## Distribution
+# npm (works via npx, no global install needed)
+npx agent-trace --help
 
-- Single static binary, pure Rust, no C dependencies.
-- Published to crates.io (`cargo install`), npm (runnable via `npx`), and Homebrew.
-- Cross-platform: macOS (arm64/x64), Linux (x64/arm64), Windows (x64).
+# Homebrew
+brew install wyrd-company/tools/agent-trace
+```
 
-## Core dependencies
+Prebuilt binaries for macOS (arm64/x64), Linux (x64/arm64, musl static), and
+Windows (x64) are attached to every [release](https://github.com/wyrd-company/agent-trace/releases).
 
-- `resvg` + `tiny-skia` for SVG rasterization.
-- `vtracer` (the `visioncortex` library) vendored/embedded for raster→vector tracing.
-- An image comparison approach supporting pixel diff and SSIM (implement or use a pure-Rust crate).
-- Do NOT vendor potrace or autotrace (C, GPL). If useful, optionally shell out to them when found on PATH, clearly marked as optional.
+## The agent loop
 
-## Subcommands
+1. `agent-trace colors <reference>` — read the exact hex values to target.
+2. *(optional)* `agent-trace trace <reference> start.svg` — a starting-point SVG.
+3. Author or revise `candidate.svg`.
+4. `agent-trace judge <reference> candidate.svg --diff-image diff.png --grid`
+   — score it and localize the errors.
+5. Read the scores + `regions`, open `diff.png`, attack the worst region, and
+   return to step 3. Stop when `combined` clears your target (or `--threshold`
+   passes).
 
-### `agent-trace judge <reference-image> <candidate.svg>`
-The core command. Rasterizes the SVG at the reference image's resolution and compares.
+Run `agent-trace skill > SKILL.md` to install the full, agent-facing workflow
+guide into a project.
 
-Output (stdout):
-- Overall similarity scores: pixel match %, SSIM, and a combined score.
-- Localized diff report: a list of regions (bounding boxes in pixel coordinates) ranked by error magnitude, each with its local error score.
-- Dimension/aspect-ratio mismatch warnings.
-- Paths to any generated artifact images (see flags).
+## Quick start
 
-Output formats:
+```bash
+# Score an SVG against a reference image (TOON by default).
+agent-trace judge logo.png candidate.svg
 
-JSON - most obvious choice. Agents are trained on JSON, but it is token heavy. Consider JSONL
-TOON - Token-Oriented Object Notation (TOON) is a compact, human-readable format designed for passing structured data to Large Language Models with significantly reduced token usage. Some benchmarks show increased accuracy + reduced token usage. `cargo add toon-format`
-  - Consider if TOON should be considered default.
+# With artifacts and a coordinate grid for a vision model.
+agent-trace judge logo.png candidate.svg \
+  --diff-image diff.png --side-by-side sbs.png --grid
 
-Flags:
-- `--diff-image <path>`: write a diff heatmap image (pixel delta as color overlay).
-- `--side-by-side <path>`: write a labeled side-by-side image (reference | rendered).
-- `--blend <path>`: write a 50% opacity onion-skin overlay.
-- `--grid`: add coordinate gridlines with axis labels to generated images, so vision models can map errors to actual SVG coordinates.
-- `--threshold <0-100>`: exit non-zero if combined score is below threshold (CI-friendly).
+# CI gate: exit code 2 if the combined score is below 95.
+agent-trace judge logo.png candidate.svg --threshold 95
+```
 
-### `agent-trace render <candidate.svg> <output.png>`
-Plain rasterization. Flags for width/height/scale and background color.
+Example `judge` output:
 
-### `agent-trace trace <image> [output.svg]`
-Wraps the embedded vtracer. Expose vtracer's key tuning options (color mode, filter speckle, corner threshold, etc.). Output goes to file or stdout. Machine readable summary (path count, color count) to via `--json|toon`.
+```toon
+reference:
+  path: logo.png
+  width: 512
+  height: 512
+candidate: candidate.svg
+rendered:
+  width: 512
+  height: 512
+scores:
+  pixel_match: 96.4
+  ssim: 88.1
+  combined: 92.25
+warnings[0]:
+regions[2]{x,y,width,height,error}:
+  192,64,128,96,41.2
+  0,416,96,96,33.7
+artifacts:
+  diff_image: diff.png
+```
 
-### `agent-trace colors <image>`
-Extract the dominant color palette. Machine readable output: hex values, approximate pixel coverage %, and a representative location for each color. Flag `--max-colors <n>`.
+## Commands
 
-### `agent-trace compare <image-a> <image-b>`
-Same comparison engine as `judge` but for two raster images (useful when the agent has already rendered something itself).
+| Command | Purpose |
+| --- | --- |
+| `judge <reference-image> <candidate.svg>` | Render the SVG at the reference resolution and score it (pixel match, SSIM, combined, regions). |
+| `compare <image-a> <image-b>` | The same engine for two raster images. |
+| `render <candidate.svg> <output.png>` | Plain rasterization (`--width`/`--height`/`--scale`/`--background`). |
+| `trace <image> [output.svg]` | Raster→vector starting point via the embedded vtracer. |
+| `colors <image>` | Dominant color palette: hex, coverage %, sample location. |
+| `skill` | Print the agent-facing skill document (Markdown). |
 
-### `agent-trace skill`
-Inspired by Vercel's `agent-browser`. Prints a complete agent-facing skill document (markdown) to stdout describing:
-- What the tool is for and the intended workflow loop:
-  1. `colors` on the reference to get exact hex values.
-  2. Optionally `trace` to get a starting-point SVG or to understand shapes.
-  3. Author/revise SVG.
-  4. `judge` with `--diff-image --grid` to score and localize errors.
-  5. Read the JSON/JSONL|TOON + diff image, revise the SVG, repeat until score target met.
-- Full subcommand reference with examples and example machine readable outputs.
-- Tips for interpreting scores and diff regions (e.g., "low SSIM but high pixel match usually means structural/edge misalignment").
+`judge`/`compare` artifact flags: `--diff-image`, `--side-by-side`, `--blend`,
+`--grid`, `--threshold <0-100>`, `--block`, `--max-regions`. Artifacts are only
+ever written to the explicit paths you pass — never to implicit temp files.
 
-This document should be written *for an LLM agent as the reader*: imperative, example-heavy, no marketing language. Agents (or users) can run `agent-trace skill > SKILL.md` to install it into a project.
-
-## Help text
-
-All `--help` output is written for agents as the primary audience: terse, complete, with copy-pasteable examples and exact JSON|TOON schemas for outputs. Assume the reader will parse, not skim.
+See `agent-trace <command> --help` for the complete, agent-oriented reference
+with exact output schemas.
 
 ## Output conventions
 
-- JSON/JSONL|TOON to stdout by default for all commands; `--pretty` for human-readable output if JSON.
-- Exit codes: 0 success, 1 usage/IO error, 2 threshold failure (judge).
-- All generated image artifacts are written to explicit paths given by flags — never implicit temp files — so the agent always knows where to look.
+- **TOON by default** for all commands; `--format json`, `--format jsonl`, and
+  `--pretty` (for JSON) are available. JSONL streams a header record followed by
+  one record per list element (e.g. per diff region). See
+  [docs/decisions/0001](docs/decisions/0001-toon-default-output.md).
+- **Exit codes**: `0` success, `1` usage/IO error, `2` threshold not met
+  (`judge`/`compare`).
 
-## CI/CD (GitHub Actions)
+## How scoring works
 
-Create two workflows:
+- **pixel_match** — mean per-channel agreement (0–100) after compositing both
+  images over white.
+- **ssim** — an in-house mean-SSIM index (Wang et al. 2004) over a Gaussian
+  window, implemented in pure Rust to keep the license permissive and the scores
+  deterministic. See [docs/decisions/0002](docs/decisions/0002-ssim-in-house.md).
+- **combined** — a weighted blend of the two; the single number to optimize.
+- **regions** — the frame is tiled, per-block error is measured, and contiguous
+  high-error blocks are merged into ranked bounding boxes in reference pixel
+  coordinates.
 
-### `.github/workflows/ci.yml`
-Runs on pull requests and pushes to the default branch:
-- `cargo fmt --check`
-- `cargo clippy -- -D warnings`
-- `cargo test` on a matrix of macOS, Linux, and Windows.
-- Build release binaries on the matrix to catch platform-specific build breaks early.
+Interpreting them: high pixel match + low SSIM usually means structural/edge
+misalignment (check `--blend`); low pixel match + high SSIM means the shapes are
+right but the colors are off (re-run `colors`).
 
-### `.github/workflows/cd.yml`
-Triggers on pushing a SemVer tag. Tags are bare SemVer with **no `v` prefix** (e.g., `1.2.3`, not `v1.2.3`). Trigger pattern should match `[0-9]+.[0-9]+.[0-9]+*` to allow pre-release suffixes.
+## Development
 
-Steps:
-1. **Verify** the tag matches the version in `Cargo.toml`; fail fast if not.
-2. **Build** release binaries for all supported targets (macOS arm64/x64, Linux x64/arm64 — musl static, Windows x64). Produce checksummed archives (`.tar.gz` for unix, `.zip` for Windows) and upload as workflow artifacts under an `artifacts/` root.
-3. **Create a GitHub Release** for the tag with the archives and checksums attached.
-4. **Publish to crates.io** (`cargo publish`, token via `secrets.CARGO_REGISTRY_TOKEN`).
-5. **Publish to npm**: an npm package that downloads/wraps the correct platform binary (postinstall or `optionalDependencies` per-platform packages pattern), published with `secrets.NPM_TOKEN`. Must work via `npx` without global install.
-6. **Publish to the Homebrew tap** using this job pattern (adapt repository/script paths but keep the structure, env var names, and secret name exactly):
-
-```yaml
-      - name: Checkout tap repository
-        uses: actions/checkout@v4
-        with:
-          repository: wyrd-company/homebrew-tools
-          path: homebrew-tools
-          ssh-key: ${{ secrets.FORMULAE_PUBLISH_KEY }}
-      - name: Generate, commit, and push formula
-        env:
-          ARTIFACT_ROOT: artifacts
-          TAG: ${{ steps.version.outputs.tag }}
-          VERSION: ${{ steps.version.outputs.version }}
-          REPOSITORY: ${{ github.repository }}
-          TAP_DIR: homebrew-tools
-        run: ./scripts/publish-homebrew-tap.sh
+```bash
+cargo test                                   # unit + integration + e2e tests
+cargo fmt --all --check
+cargo clippy --all-targets -- -D warnings
+cargo run -- judge ref.png candidate.svg     # run locally
 ```
 
-   This requires: a `version` step earlier in the job that exposes `tag` and `version` outputs parsed from the pushed tag, built artifacts available under `artifacts/`, and a `scripts/publish-homebrew-tap.sh` script in the repo that generates the formula (with per-platform URLs and sha256s pointing at the GitHub Release assets), commits it to the tap checkout, and pushes.
+The crate is organized as focused subsystems (`render`, `compare`, `palette`,
+`tracing`, `artifacts`, `output`, `skill`) with one module per CLI subcommand
+under `commands/`. Architecture decisions are recorded in
+[`docs/decisions`](docs/decisions).
 
-Publish steps should run only after the build and release steps succeed, so the formula and npm package never point at assets that don't exist.
+## Releasing
 
-## Non-goals (v1)
+Push a bare-SemVer tag (no `v` prefix, e.g. `1.2.3`). The `cd` workflow verifies
+the tag matches `Cargo.toml`, builds and checksums binaries for all targets,
+creates the GitHub Release, then publishes to crates.io, npm, and the Homebrew
+tap.
 
-- No structural SVG linting (possible v2).
-- No shape/geometry detection (possible v2).
-- No GUI, no watch mode, no server.
+## License
 
-## Quality bar
-
-- Unit tests for the comparison engine (known image pairs with expected scores).
-- Snapshot tests for JSON/JSONL|TOON output schemas.
-- An end-to-end test: trace a sample logo, judge it against the original, assert score above a floor.
-- README with the same agent-loop documentation as `skill`, plus install instructions for all three channels.
+Licensed under either of [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE) at
+your option.
