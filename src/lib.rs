@@ -2,6 +2,7 @@
 //!
 //! Subsystems are added in their own commits; see `src/` for the module tree.
 
+pub mod artifacts;
 pub mod compare;
 pub mod io;
 pub mod output;
