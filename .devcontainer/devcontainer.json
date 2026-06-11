@@ -1,0 +1,36 @@
+{
+  "name": "agent-svgtools",
+
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+  "features": {
+    "ghcr.io/devcontainers/features/rust:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Rust
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb"
+      ]
+    }
+  },
+
+  "containerEnv": {
+    "DEVCONTAINER_ID": "${devcontainerId}",
+    "WORKSPACE_HOME": "${containerWorkspaceFolder}"
+  },
+
+  "remoteEnv": {
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+  
+  "shutdownAction": "none",
+
+  "runArgs": [
+    "--name", "agent-trace-${devcontainerId}",
+    "-h", "${devcontainerId}",
+    "-l", "devcontainer.id=${devcontainerId}"
+  ]
+}
