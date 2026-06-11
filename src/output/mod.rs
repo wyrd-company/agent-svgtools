@@ -3,11 +3,11 @@
 //! Every command produces a value that implements [`Report`]. The [`emit`]
 //! function renders it in the format the caller selected on the command line.
 //!
-//! Format philosophy (see `docs/decisions` and the README): the default is
-//! TOON because the primary reader is an LLM agent in a tight iterate-and-score
-//! loop, and TOON encodes the same structure in materially fewer tokens than
-//! JSON. JSON and JSONL remain first-class for callers that need a universal
-//! parser or a streaming, line-delimited record format.
+//! Format philosophy: the default is TOON because the primary reader is an LLM
+//! agent in a tight iterate-and-score loop, and TOON encodes the same structure
+//! in materially fewer tokens than JSON. JSON and JSONL remain first-class for
+//! callers that need a universal parser or a streaming, line-delimited record
+//! format.
 
 mod format;
 

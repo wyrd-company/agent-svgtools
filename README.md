@@ -104,8 +104,7 @@ with exact output schemas.
 
 - **TOON by default** for all commands; `--format json`, `--format jsonl`, and
   `--pretty` (for JSON) are available. JSONL streams a header record followed by
-  one record per list element (e.g. per diff region). See
-  [docs/decisions/0001](docs/decisions/0001-toon-default-output.md).
+  one record per list element (e.g. per diff region).
 - **Exit codes**: `0` success, `1` usage/IO error, `2` threshold not met
   (`judge`/`compare`).
 
@@ -115,7 +114,7 @@ with exact output schemas.
   images over white.
 - **ssim** — an in-house mean-SSIM index (Wang et al. 2004) over a Gaussian
   window, implemented in pure Rust to keep the license permissive and the scores
-  deterministic. See [docs/decisions/0002](docs/decisions/0002-ssim-in-house.md).
+  deterministic.
 - **combined** — a weighted blend of the two; the single number to optimize.
 - **regions** — the frame is tiled, per-block error is measured, and contiguous
   high-error blocks are merged into ranked bounding boxes in reference pixel
@@ -125,28 +124,7 @@ Interpreting them: high pixel match + low SSIM usually means structural/edge
 misalignment (check `--blend`); low pixel match + high SSIM means the shapes are
 right but the colors are off (re-run `colors`).
 
-## Development
+## Contributing
 
-```bash
-cargo test                                   # unit + integration + e2e tests
-cargo fmt --all --check
-cargo clippy --all-targets -- -D warnings
-cargo run -- judge ref.png candidate.svg     # run locally
-```
-
-The crate is organized as focused subsystems (`render`, `compare`, `palette`,
-`tracing`, `artifacts`, `output`, `skill`) with one module per CLI subcommand
-under `commands/`. Architecture decisions are recorded in
-[`docs/decisions`](docs/decisions).
-
-## Releasing
-
-Push a bare-SemVer tag (no `v` prefix, e.g. `1.2.3`). The `cd` workflow verifies
-the tag matches `Cargo.toml`, builds and checksums binaries for all targets,
-creates the GitHub Release, then publishes to crates.io, npm, and the Homebrew
-tap.
-
-## License
-
-Licensed under either of [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE) at
-your option.
+Development, release, and architecture-decision guidance lives in
+[CONTRIBUTING.md](CONTRIBUTING.md).
