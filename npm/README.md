@@ -19,4 +19,4 @@ Supported: macOS (arm64/x64), Linux (x64/arm64, musl static), Windows (x64).
 See the [main README](https://github.com/wyrd-company/agent-trace) and run
 `agent-trace skill` for the full agent workflow guide.
 
-Licensed MIT OR Apache-2.0.
+Licensed MIT.

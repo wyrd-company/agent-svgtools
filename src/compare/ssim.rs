@@ -2,7 +2,7 @@
 //!
 //! A from-scratch implementation of the Wang et al. (2004) mean-SSIM index over
 //! a Gaussian window. Implemented in-tree (rather than pulling a GPL/AGPL crate)
-//! so the project stays MIT/Apache and the scores are deterministic and unit
+//! so the project stays MIT-licensed and the scores are deterministic and unit
 //! testable. See `docs/decisions/0002-ssim-in-house.md`.
 //!
 //! Local statistics are gathered with a separable 11-tap Gaussian (sigma 1.5),

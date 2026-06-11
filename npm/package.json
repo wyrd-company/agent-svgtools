@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/wyrd-company/agent-trace.git"
   },
-  "license": "MIT OR Apache-2.0",
+  "license": "MIT",
   "bin": {
     "agent-trace": "bin/agent-trace.js"
   },
