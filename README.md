@@ -123,8 +123,3 @@ with exact output schemas.
 Interpreting them: high pixel match + low SSIM usually means structural/edge
 misalignment (check `--blend`); low pixel match + high SSIM means the shapes are
 right but the colors are off (re-run `colors`).
-
-## Contributing
-
-Development, release, and architecture-decision guidance lives in
-[CONTRIBUTING.md](CONTRIBUTING.md).
