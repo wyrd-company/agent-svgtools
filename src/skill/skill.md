@@ -1,7 +1,7 @@
-# Skill: agent-trace
+# Skill: agent-svgtools
 
 You are authoring an SVG that should reproduce a raster reference image (e.g.
-recreating a logo). You cannot see your own output. `agent-trace` is the
+recreating a logo). You cannot see your own output. `agent-svgtools` is the
 feedback loop: it renders your SVG, scores it against the reference, tells you
 *where* it is wrong, and produces annotated images you can look at.
 
@@ -9,12 +9,12 @@ Work in a loop. Do not guess twice in a row without scoring in between.
 
 ## The loop
 
-1. `agent-trace colors <reference>` — read the exact hex values you must hit.
-2. (optional) `agent-trace trace <reference> start.svg` — get a starting-point
+1. `agent-svgtools colors <reference>` — read the exact hex values you must hit.
+2. (optional) `agent-svgtools trace <reference> start.svg` — get a starting-point
    SVG or just to understand the shapes. Treat it as scaffolding, not a final
    answer; it is verbose.
 3. Author or revise `candidate.svg`.
-4. `agent-trace judge <reference> candidate.svg --diff-image diff.png --grid`
+4. `agent-svgtools judge <reference> candidate.svg --diff-image diff.png --grid`
    — score it and localize the errors.
 5. Read the scores and the `regions` list. Open `diff.png`. Revise the SVG to
    attack the highest-error region first. Go back to step 3.
@@ -33,9 +33,9 @@ Exit codes: `0` success, `1` usage/IO error, `2` threshold not met (`judge`).
 ### judge — score an SVG against a reference
 
 ```
-agent-trace judge logo.png candidate.svg
-agent-trace judge logo.png candidate.svg --diff-image diff.png --grid
-agent-trace judge logo.png candidate.svg --threshold 95   # exit 2 if below
+agent-svgtools judge logo.png candidate.svg
+agent-svgtools judge logo.png candidate.svg --diff-image diff.png --grid
+agent-svgtools judge logo.png candidate.svg --threshold 95   # exit 2 if below
 ```
 
 Renders `candidate.svg` at the reference's pixel size, then scores. Example
@@ -84,14 +84,14 @@ Same engine as `judge`, but both inputs are rasters (use when you have already
 rendered something yourself). `image-b` is resized to `image-a` if needed.
 
 ```
-agent-trace compare reference.png mine.png --diff-image diff.png
+agent-svgtools compare reference.png mine.png --diff-image diff.png
 ```
 
 ### render — rasterize an SVG to PNG
 
 ```
-agent-trace render candidate.svg out.png --width 512
-agent-trace render candidate.svg out.png --scale 2 --background white
+agent-svgtools render candidate.svg out.png --width 512
+agent-svgtools render candidate.svg out.png --scale 2 --background white
 ```
 
 Flags: `--width`, `--height`, `--scale`, `--background <color>`. With both
@@ -100,7 +100,7 @@ width and height the SVG is stretched to fill; with one, aspect is preserved.
 ### colors — extract the reference palette
 
 ```
-agent-trace colors logo.png --max-colors 6
+agent-svgtools colors logo.png --max-colors 6
 ```
 
 ```toon
@@ -116,8 +116,8 @@ image; `location` is a sample pixel of that color.
 ### trace — raster → vector starting point
 
 ```
-agent-trace trace logo.png start.svg
-agent-trace trace logo.png start.svg --coloring color --filter-speckle 4 --curve spline
+agent-svgtools trace logo.png start.svg
+agent-svgtools trace logo.png start.svg --coloring color --filter-speckle 4 --curve spline
 ```
 
 Writes the SVG to the output path (or stdout if omitted) and prints a summary
@@ -128,7 +128,7 @@ Writes the SVG to the output path (or stdout if omitted) and prints a summary
 ### skill — print this document
 
 ```
-agent-trace skill > SKILL.md
+agent-svgtools skill > SKILL.md
 ```
 
 ## Interpreting scores

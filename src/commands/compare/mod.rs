@@ -1,4 +1,4 @@
-//! `agent-trace compare` — score two raster images with the same engine as
+//! `agent-svgtools compare` — score two raster images with the same engine as
 //! `judge` (useful when the agent has already rendered something itself).
 
 mod report;

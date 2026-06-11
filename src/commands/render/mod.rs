@@ -1,4 +1,4 @@
-//! `agent-trace render` — plain SVG rasterization to PNG.
+//! `agent-svgtools render` — plain SVG rasterization to PNG.
 
 use crate::commands::shared::OutputCtx;
 use crate::io::{read_svg_bytes, save_png};

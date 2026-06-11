@@ -113,6 +113,6 @@ fn skill_prints_document() {
         .arg("skill")
         .assert()
         .success()
-        .stdout(predicate::str::contains("# Skill: agent-trace"))
+        .stdout(predicate::str::contains("# Skill: agent-svgtools"))
         .stdout(predicate::str::contains("judge"));
 }

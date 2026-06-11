@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Postinstall: download the platform-correct agent-trace binary from the
+// Postinstall: download the platform-correct agent-svgtools binary from the
 // matching GitHub Release and unpack it next to the launcher shim.
 //
 // The release assets are produced by .github/workflows/cd.yml as
-//   agent-trace-<version>-<target>.tar.gz   (unix)
-//   agent-trace-<version>-<target>.zip      (windows)
+//   agent-svgtools-<version>-<target>.tar.gz   (unix)
+//   agent-svgtools-<version>-<target>.zip      (windows)
 // each with a sibling .sha256 we verify after download.
 
 "use strict";
@@ -33,7 +33,7 @@ function selectTarget() {
   const t = TARGETS[key];
   if (!t) {
     throw new Error(
-      `unsupported platform ${key}. Build from source via \`cargo install agent-trace\`.`
+      `unsupported platform ${key}. Build from source via \`cargo install agent-svgtools\`.`
     );
   }
   return t;
@@ -44,7 +44,7 @@ function download(url, dest) {
     const file = fs.createWriteStream(dest);
     const get = (u, redirects) => {
       https
-        .get(u, { headers: { "User-Agent": "agent-trace-installer" } }, (res) => {
+        .get(u, { headers: { "User-Agent": "agent-svgtools-installer" } }, (res) => {
           if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
             if (redirects <= 0) return reject(new Error("too many redirects"));
             res.resume();
@@ -66,7 +66,7 @@ function download(url, dest) {
 }
 
 async function fetchText(url) {
-  const tmp = path.join(os.tmpdir(), `agent-trace-${Date.now()}.txt`);
+  const tmp = path.join(os.tmpdir(), `agent-svgtools-${Date.now()}.txt`);
   await download(url, tmp);
   const text = fs.readFileSync(tmp, "utf8");
   fs.rmSync(tmp, { force: true });
@@ -93,14 +93,14 @@ function extract(archive, destDir, ext) {
 async function main() {
   const { target, ext } = selectTarget();
   const base = `https://github.com/${REPO}/releases/download/${version}`;
-  const asset = `agent-trace-${version}-${target}.${ext}`;
+  const asset = `agent-svgtools-${version}-${target}.${ext}`;
   const url = `${base}/${asset}`;
 
   const binDir = path.join(__dirname, "bin");
   fs.mkdirSync(binDir, { recursive: true });
   const archive = path.join(binDir, asset);
 
-  console.log(`agent-trace: downloading ${asset}`);
+  console.log(`agent-svgtools: downloading ${asset}`);
   await download(url, archive);
 
   // Verify the checksum if the .sha256 sidecar is present.
@@ -111,24 +111,24 @@ async function main() {
       throw new Error(`checksum mismatch: expected ${expected}, got ${actual}`);
     }
   } catch (e) {
-    console.warn(`agent-trace: checksum not verified (${e.message})`);
+    console.warn(`agent-svgtools: checksum not verified (${e.message})`);
   }
 
   extract(archive, binDir, ext);
   fs.rmSync(archive, { force: true });
 
-  const binName = process.platform === "win32" ? "agent-trace.exe" : "agent-trace";
+  const binName = process.platform === "win32" ? "agent-svgtools.exe" : "agent-svgtools";
   const binPath = path.join(binDir, binName);
   if (!fs.existsSync(binPath)) {
-    throw new Error("archive did not contain the agent-trace binary");
+    throw new Error("archive did not contain the agent-svgtools binary");
   }
   if (process.platform !== "win32") {
     fs.chmodSync(binPath, 0o755);
   }
-  console.log("agent-trace: installed");
+  console.log("agent-svgtools: installed");
 }
 
 main().catch((err) => {
-  console.error(`agent-trace: install failed: ${err.message}`);
+  console.error(`agent-svgtools: install failed: ${err.message}`);
   process.exit(1);
 });

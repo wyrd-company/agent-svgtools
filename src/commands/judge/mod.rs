@@ -1,4 +1,4 @@
-//! `agent-trace judge` — render an SVG candidate and score it against a
+//! `agent-svgtools judge` — render an SVG candidate and score it against a
 //! raster reference.
 
 mod report;

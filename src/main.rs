@@ -1,4 +1,4 @@
-//! `agent-trace` binary entry point.
+//! `agent-svgtools` binary entry point.
 //!
 //! Thin by design: parse arguments, dispatch into the library, and translate
 //! the result into a process exit code. All real work lives in the crate's
@@ -6,7 +6,7 @@
 //!
 //! Exit codes: 0 success, 1 usage/IO error, 2 threshold not met (judge/compare).
 
-use agent_trace::cli::Cli;
+use agent_svgtools::cli::Cli;
 use clap::Parser;
 use std::process::ExitCode;
 

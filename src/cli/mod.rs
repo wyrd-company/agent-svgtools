@@ -6,17 +6,17 @@ use crate::output::OutputFormat;
 use anyhow::Result;
 use clap::{Parser, Subcommand};
 
-/// agent-trace: close the feedback loop for AI agents authoring SVGs from
+/// agent-svgtools: close the feedback loop for AI agents authoring SVGs from
 /// raster references — render, score, localize, and visualize.
 #[derive(Debug, Parser)]
 #[command(
-    name = "agent-trace",
+    name = "agent-svgtools",
     version,
     about = "Machine-first SVG-vs-raster scoring for AI coding agents.",
     long_about = "Render SVGs, score them against raster references (pixel match + SSIM), \
 report ranked error regions, and emit vision-model-friendly comparison images. \
 Default output is TOON; use --format json|jsonl or --pretty as needed. \
-Run `agent-trace skill` for the full agent workflow guide."
+Run `agent-svgtools skill` for the full agent workflow guide."
 )]
 pub struct Cli {
     /// Output format for machine-readable results.

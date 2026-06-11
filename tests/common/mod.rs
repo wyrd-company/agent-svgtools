@@ -3,9 +3,9 @@
 use assert_cmd::Command;
 use std::path::PathBuf;
 
-/// A fresh `agent-trace` command bound to the built binary.
+/// A fresh `agent-svgtools` command bound to the built binary.
 pub fn bin() -> Command {
-    Command::cargo_bin("agent-trace").expect("binary builds")
+    Command::cargo_bin("agent-svgtools").expect("binary builds")
 }
 
 /// Absolute path to a file under `tests/fixtures`.

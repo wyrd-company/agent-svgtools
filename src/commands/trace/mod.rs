@@ -1,4 +1,4 @@
-//! `agent-trace trace` — raster→vector tracing via the embedded vtracer.
+//! `agent-svgtools trace` — raster→vector tracing via the embedded vtracer.
 
 use crate::commands::shared::OutputCtx;
 use crate::io::load_rgba;

@@ -1,4 +1,4 @@
-//! agent-trace: a machine-first toolkit for the SVG-from-raster feedback loop.
+//! agent-svgtools: a machine-first toolkit for the SVG-from-raster feedback loop.
 //!
 //! The crate is split into focused subsystems, each in its own module:
 //!
@@ -13,7 +13,7 @@
 //! - [`commands`] — one module per CLI subcommand, orchestrating the above.
 //! - [`cli`]     — the top-level parser and subcommand dispatch.
 //!
-//! The library is consumed by the thin `agent-trace` binary (`src/main.rs`),
+//! The library is consumed by the thin `agent-svgtools` binary (`src/main.rs`),
 //! and exercised directly by the integration tests.
 
 pub mod artifacts;

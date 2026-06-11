@@ -1,5 +1,5 @@
 {
-  "name": "agent-trace",
+  "name": "agent-svgtools",
   "version": "0.0.0",
   "description": "Machine-first CLI that scores AI-authored SVGs against raster references: render, SSIM/pixel diff, localized error regions, and vision-friendly comparison images.",
   "keywords": [
@@ -17,13 +17,13 @@
   },
   "license": "MIT",
   "bin": {
-    "agent-trace": "bin/agent-trace.js"
+    "agent-svgtools": "bin/agent-svgtools.js"
   },
   "scripts": {
     "postinstall": "node install.js"
   },
   "files": [
-    "bin/agent-trace.js",
+    "bin/agent-svgtools.js",
     "install.js"
   ],
   "engines": {

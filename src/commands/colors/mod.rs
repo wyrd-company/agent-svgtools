@@ -1,4 +1,4 @@
-//! `agent-trace colors` — dominant color palette extraction.
+//! `agent-svgtools colors` — dominant color palette extraction.
 
 use crate::commands::shared::OutputCtx;
 use crate::io::load_rgba;
