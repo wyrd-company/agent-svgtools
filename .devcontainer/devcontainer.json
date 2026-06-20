@@ -1,7 +1,7 @@
 {
   "name": "agent-svgtools",
 
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "image": "mcr.microsoft.com/devcontainers/base:noble",
 
   "features": {
     "ghcr.io/devcontainers/features/rust:1": {}
@@ -24,13 +24,5 @@
 
   "remoteEnv": {
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-  },
-  
-  "shutdownAction": "none",
-
-  "runArgs": [
-    "--name", "agent-trace-${devcontainerId}",
-    "-h", "${devcontainerId}",
-    "-l", "devcontainer.id=${devcontainerId}"
-  ]
+  }
 }
