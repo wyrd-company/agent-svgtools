@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    cargo-fmt:
+      run: cargo fmt --all
+      stage_fixed: true
+
+pre-push:
+  commands:
+    cargo-fmt-check:
+      run: cargo fmt --all --check
+    cargo-clippy:
+      run: cargo clippy --all-targets --all-features -- -D warnings
+    cargo-test:
+      run: cargo test --all-features --workspace
