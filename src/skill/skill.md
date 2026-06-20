@@ -5,20 +5,163 @@ recreating a logo). You cannot see your own output. `agent-svgtools` is the
 feedback loop: it renders your SVG, scores it against the reference, tells you
 *where* it is wrong, and produces annotated images you can look at.
 
-Work in a loop. Do not guess twice in a row without scoring in between.
+The goal is a clean, maintainable vector drawing that visually matches the
+reference. Do not optimize for pixel score at the cost of unusable SVG. A high
+score with jagged edges, stray paths, distorted shapes, or thousands of tiny
+objects is a failed result.
+
+Work systematically. Analyze first, decompose the image into meaningful parts,
+author semantic SVG shapes, then judge and repair one component at a time. Do
+not guess twice in a row without scoring in between.
+
+## When this works best
+
+This workflow is strongest for logos, icons, badges, marks, flat illustrations,
+and simple product graphics. It is weak for photos, gradients, textures,
+watercolor, shadows, and highly detailed artwork. For those, produce a simplified
+vector interpretation unless the user explicitly asks for high-fidelity tracing.
+
+Good targets:
+- limited palette, usually 2-8 meaningful colors
+- clear foreground/background separation
+- shapes that can be described as circles, rectangles, polygons, curves, text,
+  strokes, or layered filled regions
+- enough resolution to see the real edges
+
+Bad targets:
+- photographic gradients or fine texture
+- small antialiased text that should really be recreated from a font
+- screenshots with compression artifacts
+- output where the only way to match is embedding or approximating a bitmap
 
 ## The loop
 
-1. `agent-svgtools colors <reference>` — read the exact hex values you must hit.
-2. (optional) `agent-svgtools trace <reference> start.svg` — get a starting-point
-   SVG or just to understand the shapes. Treat it as scaffolding, not a final
-   answer; it is verbose.
-3. Author or revise `candidate.svg`.
-4. `agent-svgtools judge <reference> candidate.svg --diff-image diff.png --grid`
-   — score it and localize the errors.
-5. Read the scores and the `regions` list. Open `diff.png`. Revise the SVG to
-   attack the highest-error region first. Go back to step 3.
-6. Stop when `combined` clears your target (e.g. 95) or `--threshold` passes.
+1. Inspect the reference dimensions and palette:
+   `agent-svgtools colors <reference> --max-colors 12`.
+2. Decide whether the image is suitable for clean vector reconstruction. If it
+   is not, explain that a simplified SVG is the realistic target.
+3. Make a component plan before writing SVG: background, main silhouette,
+   internal shapes, strokes, text, highlights, shadows. Record approximate
+   bounding boxes from the image/grid when useful.
+4. Optionally run `agent-svgtools trace <reference> trace.svg` to understand
+   shape boundaries, but treat the trace as scaffolding. Do not accept it as the
+   final SVG unless it is simple, readable, and visually clean.
+5. Author `candidate.svg` from semantic SVG elements and paths. Prefer grouped,
+   named components over one large opaque pile of traced paths.
+6. Judge with visual artifacts:
+   `agent-svgtools judge <reference> candidate.svg --side-by-side sbs.png --diff-image diff.png --blend blend.png --grid`.
+7. Read both the numbers and the images. Fix the worst meaningful component,
+   not merely the largest score delta. Re-run `judge` after each focused edit.
+8. Stop when the SVG is visually acceptable, structurally clean, and the score
+   supports that conclusion. A typical clean logo target is combined 95-98; 100
+   is usually unrealistic unless you have the original vector or reproduce
+   renderer quirks.
+
+## Systematic conversion workflow
+
+### 1. Prepare the reference
+
+Use the highest-resolution source available. If a white/solid background is not
+part of the mark, ignore it mentally when judging quality. If companion tools
+such as ImageMagick are available, use them to create temporary work images:
+
+```bash
+# remove a near-white background for analysis
+magick logo.png -fuzz 5% -transparent white logo-foreground.png
+
+# trim surrounding whitespace
+magick logo-foreground.png -trim logo-trimmed.png
+
+# crop a problem component using a judge region
+magick logo.png -crop 124x186+217+279 component.png
+```
+
+These prepared images are analysis aids. Keep the final SVG clean; do not embed
+the raster unless explicitly asked.
+
+### 2. Decompose before drawing
+
+Create a short plan from the image:
+
+```text
+canvas: 500x500
+background: white, not part of logo
+components:
+  body: teal curved rocket body, x 135-320, y 40-360
+  fins: red left/right/base polygons
+  window: red stroked circle with white fill
+  flame: yellow fill with black outline, three lobes
+palette:
+  teal #0088aa
+  red #fe0000
+  yellow #fefe00
+  black #010100
+```
+
+Use `colors` for exact fills, but interpret the palette. Antialiasing creates
+near-duplicate colors; do not turn every sampled color into a separate SVG fill.
+
+### 3. Author semantic SVG
+
+Prefer simple SVG elements where they fit:
+- `rect`, `circle`, `ellipse`, `line`, `polyline`, and `polygon` for geometric
+  parts
+- `path` for true curves and irregular silhouettes
+- `g id="..."` for meaningful components
+- reusable `fill`, `stroke`, `stroke-width`, `stroke-linejoin`, and
+  `stroke-linecap` choices
+
+Keep paths readable. A few good Bezier curves are better than hundreds of traced
+micro-paths. If text is present, recreate it with an available font or convert
+only the final text to paths when the visual shape matters more than editability.
+
+### 4. Use tracing cautiously
+
+Tracing is a starting point, not the product. It is useful for:
+- identifying approximate boundaries
+- estimating whether the reference is vector-friendly
+- bootstrapping simple silhouettes
+- comparing what an automatic trace loses
+
+It is risky when it produces many colors/paths. Treat these as warning signs:
+- path count above a few dozen for a simple logo
+- color count far above the actual brand palette
+- ragged edges, speckles, tiny slivers, or duplicated shadows
+- a high score that still looks bad in `--side-by-side`
+
+When the trace is noisy, use it as a reference and hand-author a cleaner SVG
+instead of editing hundreds of generated paths.
+
+### 5. Judge locally and visually
+
+The global score can be misleading when the background is large. Always open the
+side-by-side, diff, or blend artifact. A score above 98 can still be unusable if
+the foreground has visible defects.
+
+Use the report this way:
+- `regions` points to where to look first.
+- `--side-by-side --grid` shows whether component geometry is right.
+- `--blend` shows misalignment and ghosting.
+- `--diff-image` shows local color/edge disagreement.
+- `colors` tells you whether a mismatch is palette or shape.
+
+Repair one component at a time. For example: fix the rocket body silhouette,
+then fins, then window, then flame. After each edit, rerun `judge` and compare
+the new artifacts against the previous ones.
+
+### 6. Preserve SVG quality
+
+Before declaring success, inspect the SVG as code:
+- named groups correspond to visual components
+- no unexpected embedded image
+- no large pile of tiny anonymous paths unless unavoidable
+- palette is intentional and small
+- dimensions/viewBox match the reference aspect ratio
+- strokes and joins look deliberate
+- the side-by-side artifact has no obvious visible aberrations
+
+If the numeric score improves but the SVG becomes less maintainable or visually
+worse, revert that edit and choose a semantic repair instead.
 
 ## Output format
 
@@ -65,9 +208,9 @@ artifacts:
 Reading it:
 - `pixel_match` — per-channel color agreement (0–100).
 - `ssim` — structural similarity (0–100). Sensitive to edges/shape.
-- `combined` — the single number to optimize (0–100).
+- `combined` — a useful summary score (0–100), not the only success criterion.
 - `regions` — bounding boxes in reference pixel coordinates, worst first, each
-  with a local `error` (0–100). Fix the top region first.
+  with a local `error` (0–100). Inspect these visually before editing.
 - `warnings` — dimension/aspect-ratio mismatches.
 
 Artifact flags (all write to the explicit path you give — nothing implicit):
@@ -125,6 +268,10 @@ Writes the SVG to the output path (or stdout if omitted) and prints a summary
 `--layer stacked|cutout`, `--curve pixel|polygon|spline`, `--filter-speckle`,
 `--color-precision`, `--corner-threshold`, `--length-threshold`.
 
+Prefer lower color precision and higher speckle filtering when you want a
+simpler scaffold, but verify the visual result. If tuning collapses the mark or
+creates a single blob, discard that trace.
+
 ### skill — print this document
 
 ```
@@ -143,3 +290,6 @@ agent-svgtools skill > SKILL.md
   usually low priority unless your target score is very high.
 - **A dimension/aspect warning** — your SVG `viewBox`/aspect does not match the
   reference; fix that first, since everything else is measured after stretching.
+- **High combined score, visible defects** — the score is being diluted by easy
+  pixels such as background. Trust the artifacts and fix the visible foreground
+  defect.
