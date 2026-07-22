@@ -186,7 +186,7 @@ fn skill_prints_document() {
         .arg("skill")
         .assert()
         .success()
-        .stdout(predicate::str::starts_with("---\nname: agent-svgtools\n"))
+        .stdout(predicate::str::is_match(r"^---\r?\nname: agent-svgtools\r?\n").unwrap())
         .stdout(predicate::str::contains(
             "# Clean Raster-to-SVG Reconstruction",
         ))
