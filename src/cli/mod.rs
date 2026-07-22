@@ -13,8 +13,8 @@ use clap::{Parser, Subcommand};
     name = "agent-svgtools",
     version,
     about = "Machine-first SVG-vs-raster scoring for AI coding agents.",
-    long_about = "Render SVGs, score them against raster references (pixel match + SSIM), \
-report ranked error regions, and emit vision-model-friendly comparison images. \
+    long_about = "Render and inspect SVGs, score them against raster references (pixel match + SSIM), \
+exclude shared transparency with foreground scope, report ranked error regions, and emit vision-model-friendly comparison images. \
 Default output is TOON; use --format json|jsonl or --pretty as needed. \
 Run `agent-svgtools skill` for the full agent workflow guide."
 )]
@@ -44,6 +44,8 @@ pub enum Command {
     Colors(commands::colors::Args),
     /// Compare two raster images.
     Compare(commands::compare::Args),
+    /// Inspect SVG structure, palette, naming, and resource safety.
+    Inspect(commands::inspect::Args),
     /// Print the agent-facing skill document.
     Skill(commands::skill::Args),
 }
@@ -61,6 +63,7 @@ impl Cli {
             Command::Trace(a) => commands::trace::run(a, &ctx),
             Command::Colors(a) => commands::colors::run(a, &ctx),
             Command::Compare(a) => commands::compare::run(a, &ctx),
+            Command::Inspect(a) => commands::inspect::run(a, &ctx),
             Command::Skill(a) => commands::skill::run(a, &ctx),
         }
     }

@@ -16,6 +16,9 @@ pub struct Prepared {
     pub rgb: Vec<u8>,
     /// Rec. 601 luma in `0.0..=255.0`, one value per pixel.
     pub luma: Vec<f32>,
+    /// Original alpha, one value per pixel. Kept so foreground-scoped scoring
+    /// can exclude pixels that are transparent in both inputs.
+    pub alpha: Vec<u8>,
 }
 
 /// Composite `img` over opaque white and precompute RGB + luma buffers.
@@ -24,21 +27,24 @@ pub fn prepare(img: &RgbaImage) -> Prepared {
     let count = (w * h) as usize;
     let mut rgb = vec![0u8; count * 3];
     let mut luma = vec![0f32; count];
+    let mut alpha = vec![0u8; count];
     for (i, px) in img.pixels().enumerate() {
-        let alpha = px[3] as f32 / 255.0;
-        let r = blend(px[0], alpha);
-        let g = blend(px[1], alpha);
-        let b = blend(px[2], alpha);
+        let opacity = px[3] as f32 / 255.0;
+        let r = blend(px[0], opacity);
+        let g = blend(px[1], opacity);
+        let b = blend(px[2], opacity);
         rgb[i * 3] = r;
         rgb[i * 3 + 1] = g;
         rgb[i * 3 + 2] = b;
         luma[i] = 0.299 * r as f32 + 0.587 * g as f32 + 0.114 * b as f32;
+        alpha[i] = px[3];
     }
     Prepared {
         width: w,
         height: h,
         rgb,
         luma,
+        alpha,
     }
 }
 

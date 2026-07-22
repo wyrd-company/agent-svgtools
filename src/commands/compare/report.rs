@@ -7,6 +7,7 @@ use serde::Serialize;
 /// The three headline scores.
 #[derive(Serialize)]
 pub struct Scores {
+    pub scope: &'static str,
     pub pixel_match: f64,
     pub ssim: f64,
     pub combined: f64,
@@ -58,6 +59,7 @@ impl CompareReport {
                 height: comparison.height,
             },
             scores: Scores {
+                scope: comparison.score_scope,
                 pixel_match: comparison.pixel_match,
                 ssim: comparison.ssim,
                 combined: comparison.combined,

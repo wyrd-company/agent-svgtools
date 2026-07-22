@@ -2,12 +2,12 @@
 name = "agent-svgtools"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.74"
+rust-version = "1.88"
 description = "Machine-first CLI that closes the feedback loop for AI agents authoring SVGs from raster references: render, score (pixel + SSIM), localized diffs, and vision-friendly comparison images."
 authors = ["agent-svgtools contributors"]
 license = "MIT"
-repository = "https://github.com/wyrd-company/agent-trace"
-homepage = "https://github.com/wyrd-company/agent-trace"
+repository = "https://github.com/wyrd-company/agent-svgtools"
+homepage = "https://github.com/wyrd-company/agent-svgtools"
 readme = "README.md"
 keywords = ["svg", "agent", "raster", "ssim", "diff"]
 categories = ["command-line-utilities", "multimedia::images"]
@@ -23,6 +23,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 toon-format = "0.5"
 anyhow = "1"
+roxmltree = "0.20"
 resvg = "0.45"
 image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp", "gif", "webp", "tiff"] }
 vtracer = "0.6"

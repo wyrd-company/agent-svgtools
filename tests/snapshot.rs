@@ -39,6 +39,7 @@ fn json_judge_schema() {
     for key in ["pixel_match", "ssim", "combined"] {
         assert!(v["scores"][key].is_number(), "scores.{key} missing");
     }
+    assert_eq!(v["scores"]["scope"], "canvas");
     assert!(v["warnings"].is_array());
 
     let regions = v["regions"].as_array().expect("regions array");

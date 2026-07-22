@@ -6,6 +6,7 @@
 
 pub mod colors;
 pub mod compare;
+pub mod inspect;
 pub mod judge;
 pub mod render;
 pub mod shared;

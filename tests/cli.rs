@@ -72,6 +72,36 @@ fn judge_threshold_controls_exit_code() {
 }
 
 #[test]
+fn judge_foreground_reports_selected_score_scope() {
+    let dir = tempfile::tempdir().unwrap();
+    let reference = render_reference(dir.path());
+
+    bin()
+        .arg("judge")
+        .arg(&reference)
+        .arg(fixture("candidate.svg"))
+        .args(["--foreground", "--format", "json"])
+        .assert()
+        .success()
+        .stdout(predicate::str::contains("\"scope\":\"foreground\""));
+}
+
+#[test]
+fn compare_foreground_reports_selected_score_scope() {
+    let dir = tempfile::tempdir().unwrap();
+    let reference = render_reference(dir.path());
+
+    bin()
+        .arg("compare")
+        .arg(&reference)
+        .arg(&reference)
+        .args(["--foreground", "--format", "json"])
+        .assert()
+        .success()
+        .stdout(predicate::str::contains("\"scope\":\"foreground\""));
+}
+
+#[test]
 fn missing_input_is_usage_error_exit_1() {
     bin()
         .arg("judge")
@@ -96,6 +126,49 @@ fn colors_reports_palette() {
 }
 
 #[test]
+fn inspect_reports_structure_palette_and_safety() {
+    bin()
+        .arg("inspect")
+        .arg(fixture("candidate.svg"))
+        .args(["--format", "json"])
+        .assert()
+        .success()
+        .stdout(predicate::str::contains("\"authored_graphics\""))
+        .stdout(predicate::str::contains("\"palette\""))
+        .stdout(predicate::str::contains("\"vector_only\":true"));
+}
+
+#[test]
+fn inspect_reports_embedded_raster_and_external_resources() {
+    let dir = tempfile::tempdir().unwrap();
+    let svg = dir.path().join("unsafe.svg");
+    std::fs::write(
+        &svg,
+        r#"<svg xmlns="http://www.w3.org/2000/svg" onload="alert(1)">
+             <image href="data:image/png;base64,AA=="/>
+             <use href="https://example.invalid/icon.svg#shape"/>
+             <use href="sprite.svg#shape"/>
+           </svg>"#,
+    )
+    .unwrap();
+
+    bin()
+        .arg("inspect")
+        .arg(svg)
+        .args(["--format", "json"])
+        .assert()
+        .success()
+        .stdout(predicate::str::contains("\"vector_only\":false"))
+        .stdout(predicate::str::contains("\"prohibited_tags\":[\"image\"]"))
+        .stdout(predicate::str::contains(
+            "\"scripted_attributes\":[\"onload\"]",
+        ))
+        .stdout(predicate::str::contains("\"embedded_data\":true"))
+        .stdout(predicate::str::contains("https://example.invalid"))
+        .stdout(predicate::str::contains("sprite.svg#shape"));
+}
+
+#[test]
 fn trace_to_stdout_emits_svg() {
     let dir = tempfile::tempdir().unwrap();
     let reference = render_reference(dir.path());
@@ -113,6 +186,9 @@ fn skill_prints_document() {
         .arg("skill")
         .assert()
         .success()
-        .stdout(predicate::str::contains("# Skill: agent-svgtools"))
+        .stdout(predicate::str::starts_with("---\nname: agent-svgtools\n"))
+        .stdout(predicate::str::contains(
+            "# Clean Raster-to-SVG Reconstruction",
+        ))
         .stdout(predicate::str::contains("judge"));
 }

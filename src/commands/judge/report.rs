@@ -22,6 +22,7 @@ pub struct Dimensions {
 /// The three headline scores.
 #[derive(Serialize)]
 pub struct Scores {
+    pub scope: &'static str,
     pub pixel_match: f64,
     pub ssim: f64,
     pub combined: f64,
@@ -73,6 +74,7 @@ impl JudgeReport {
                 height: comparison.height,
             },
             scores: Scores {
+                scope: comparison.score_scope,
                 pixel_match: comparison.pixel_match,
                 ssim: comparison.ssim,
                 combined: comparison.combined,

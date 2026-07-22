@@ -16,7 +16,7 @@ const https = require("https");
 const crypto = require("crypto");
 const { spawnSync } = require("child_process");
 
-const REPO = "wyrd-company/agent-trace";
+const REPO = "wyrd-company/agent-svgtools";
 const version = require("./package.json").version;
 
 // Map Node's platform/arch to a Rust target triple + archive extension.
@@ -33,7 +33,7 @@ function selectTarget() {
   const t = TARGETS[key];
   if (!t) {
     throw new Error(
-      `unsupported platform ${key}. Build from source via \`cargo install agent-svgtools\`.`
+      `unsupported platform ${key}. Build from source via the repository instructions.`
     );
   }
   return t;

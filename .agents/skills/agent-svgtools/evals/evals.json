@@ -1,0 +1,40 @@
+{
+  "skill_name": "agent-svgtools",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Recreate the provided spaceship raster as a clean, maintainable SVG. Use agent-svgtools to evaluate and improve the result, but do not use automatic trace. Save spaceship.svg and a brief worklog.md listing the commands you ran and your final assessment. You may create any other artifacts useful to your workflow. Visually verify the finished SVG.",
+      "expected_output": "A recognizable, visually faithful spaceship expressed as concise maintainable vector geometry, with enough command evidence to verify how agent-svgtools was used.",
+      "files": [
+        "../../../demo/targets/spaceship.png"
+      ],
+      "expectations": [
+        "The requested SVG and work log exist, and the SVG renders successfully at 500 by 500 pixels.",
+        "The SVG has a 0 0 500 500 viewBox, preserves transparency, and contains no image element, data URL, embedded raster, script, or external resource.",
+        "The SVG uses no more than 20 authored graphical elements, no more than 12 path elements, and no more than 60 path commands.",
+        "At least three visible components have meaningful ids or belong to meaningfully named groups, and the intentional fill/stroke palette contains no more than six colors.",
+        "The work log contains no trace command, proves agent-svgtools was used to evaluate the candidate, and records a visual final assessment.",
+        "The final agent-svgtools judge combined score is at least 90 without sacrificing the structural requirements.",
+        "Human review finds the body, fins, window, and flame recognizable, correctly layered, and proportionally similar to the reference."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Recreate the provided owl raster as a clean, maintainable SVG. Use agent-svgtools to evaluate and improve the result. Automatic trace may be used only as a disposable diagnostic on an isolated crop or binary silhouette; do not copy, simplify, or edit traced geometry into the final SVG. Save owl.svg and a brief worklog.md listing the commands you ran and your final assessment. You may create any other artifacts useful to your workflow. Visually verify the finished SVG.",
+      "expected_output": "A recognizable, visually faithful owl expressed as layered semantic vector components and deliberate curves, with enough command evidence to verify the agent-svgtools workflow and trace restriction.",
+      "files": [
+        "../../../demo/targets/owl.png"
+      ],
+      "expectations": [
+        "The requested SVG and work log exist, and the SVG renders successfully at 500 by 500 pixels.",
+        "The SVG has a 0 0 500 500 viewBox, preserves transparency, and contains no image element, data URL, embedded raster, script, or external resource.",
+        "The SVG uses no more than 50 authored graphical elements, no more than 32 path elements, and no more than 240 path commands.",
+        "At least ten visible components have meaningful ids or belong to meaningfully named groups, and the intentional fill/stroke palette contains no more than twelve colors.",
+        "The final agent-svgtools inspect report confirms the structural, naming, palette, and vector-safety requirements rather than relying on self-reported counts.",
+        "The work log proves foreground-scoped agent-svgtools judge and visual artifacts were used, records no more than three focused revisions and two diagnostic crops, includes a visual final assessment, and shows that any trace use obeyed the diagnostic-only restriction.",
+        "The final alpha-aware foreground-scoped agent-svgtools judge combined score is at least 68 without sacrificing the structural requirements.",
+        "Human review finds the owl silhouette, paired eyes, beak, wings, belly, and feet recognizable, correctly layered, proportionally similar, and faithful to visible left/right asymmetry in the reference."
+      ]
+    }
+  ]
+}

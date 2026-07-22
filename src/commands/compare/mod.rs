@@ -4,7 +4,7 @@
 mod report;
 
 use crate::commands::shared::{region_cfg, write_artifacts, ArtifactRequest, OutputCtx};
-use crate::compare::compare;
+use crate::compare::{compare, compare_foreground};
 use crate::io::load_rgba;
 use crate::output::emit_stdout;
 use anyhow::Result;
@@ -36,6 +36,10 @@ pub struct Args {
     /// Exit with code 2 if the combined score is below this value (0–100).
     #[arg(long)]
     pub threshold: Option<f64>,
+    /// Score the union of non-transparent pixels with alpha agreement,
+    /// preventing empty canvas or an opaque replacement from inflating similarity.
+    #[arg(long)]
+    pub foreground: bool,
     /// Region detection block size in pixels (default: auto).
     #[arg(long)]
     pub block: Option<u32>,
@@ -59,7 +63,11 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
     }
 
     let cfg = region_cfg(aw, ah, args.block, args.max_regions);
-    let comparison = compare(&image_a, &image_b, &cfg)?;
+    let comparison = if args.foreground {
+        compare_foreground(&image_a, &image_b, &cfg)?
+    } else {
+        compare(&image_a, &image_b, &cfg)?
+    };
 
     let artifacts = write_artifacts(
         &image_a,

@@ -10,3 +10,6 @@
 # Local scratch / generated artifact images
 /scratch
 *.tmp.png
+
+# Local skill evaluation runs and generated review artifacts
+/.agents/skills/agent-svgtools-workspace/

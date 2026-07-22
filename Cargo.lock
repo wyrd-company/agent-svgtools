@@ -30,6 +30,7 @@ dependencies = [
  "image 0.25.10",
  "predicates",
  "resvg",
+ "roxmltree",
  "serde",
  "serde_json",
  "tempfile",

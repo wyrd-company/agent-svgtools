@@ -10,10 +10,10 @@
     "diff",
     "cli"
   ],
-  "homepage": "https://github.com/wyrd-company/agent-trace",
+  "homepage": "https://github.com/wyrd-company/agent-svgtools",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wyrd-company/agent-trace.git"
+    "url": "git+https://github.com/wyrd-company/agent-svgtools.git"
   },
   "license": "MIT",
   "bin": {

@@ -29,12 +29,33 @@ pub struct Comparison {
     pub ssim: f64,
     /// Weighted blend of the two, 0–100. The single number to threshold on.
     pub combined: f64,
+    /// `canvas` scores every composited pixel; `foreground` excludes pixels
+    /// transparent in both inputs and includes alpha agreement.
+    pub score_scope: &'static str,
     /// High-error areas, ranked worst-first.
     pub regions: Vec<Region>,
 }
 
 /// Compare two equally-sized images, computing all metrics and regions.
 pub fn compare(a: &RgbaImage, b: &RgbaImage, region_cfg: &RegionConfig) -> Result<Comparison> {
+    compare_scoped(a, b, region_cfg, false)
+}
+
+/// Compare only the union of non-transparent pixels in the two images.
+pub fn compare_foreground(
+    a: &RgbaImage,
+    b: &RgbaImage,
+    region_cfg: &RegionConfig,
+) -> Result<Comparison> {
+    compare_scoped(a, b, region_cfg, true)
+}
+
+fn compare_scoped(
+    a: &RgbaImage,
+    b: &RgbaImage,
+    region_cfg: &RegionConfig,
+    foreground: bool,
+) -> Result<Comparison> {
     ensure!(
         a.dimensions() == b.dimensions(),
         "comparison requires equal dimensions: {:?} vs {:?}",
@@ -43,9 +64,23 @@ pub fn compare(a: &RgbaImage, b: &RgbaImage, region_cfg: &RegionConfig) -> Resul
     );
     let pa = luma::prepare(a);
     let pb = luma::prepare(b);
+    let foreground_mask = foreground.then(|| {
+        pa.alpha
+            .iter()
+            .zip(&pb.alpha)
+            .map(|(a, b)| *a != 0 || *b != 0)
+            .collect::<Vec<_>>()
+    });
+    let mask = foreground_mask.as_deref();
 
-    let pixel_match = pixel::pixel_match(&pa, &pb);
-    let ssim = ssim::ssim(&pa, &pb);
+    let pixel_match = match mask {
+        Some(mask) => pixel::pixel_match_foreground(&pa, &pb, mask),
+        None => pixel::pixel_match(&pa, &pb),
+    };
+    let ssim = match mask {
+        Some(mask) => ssim::ssim_foreground(&pa, &pb, mask),
+        None => ssim::ssim(&pa, &pb),
+    };
     let combined = PIXEL_WEIGHT * pixel_match + (1.0 - PIXEL_WEIGHT) * ssim;
     let regions = regions::regions(&pa, &pb, region_cfg);
 
@@ -55,6 +90,7 @@ pub fn compare(a: &RgbaImage, b: &RgbaImage, region_cfg: &RegionConfig) -> Resul
         pixel_match: round2(pixel_match),
         ssim: round2(ssim),
         combined: round2(combined),
+        score_scope: if foreground { "foreground" } else { "canvas" },
         regions: regions
             .into_iter()
             .map(|mut r| {
@@ -134,5 +170,40 @@ mod tests {
         let b = solid(12, 10, [0, 0, 0, 255]);
         let cfg = RegionConfig::auto(10, 10);
         assert!(compare(&a, &b, &cfg).is_err());
+    }
+
+    #[test]
+    fn foreground_scope_does_not_reward_shared_transparent_canvas() {
+        let mut a = solid(100, 100, [0, 0, 0, 0]);
+        let mut b = a.clone();
+        for y in 45..55 {
+            for x in 45..55 {
+                a.put_pixel(x, y, Rgba([0, 0, 0, 255]));
+                b.put_pixel(x, y, Rgba([255, 255, 255, 255]));
+            }
+        }
+        let cfg = RegionConfig::auto(100, 100);
+        let canvas = compare(&a, &b, &cfg).unwrap();
+        let foreground = compare_foreground(&a, &b, &cfg).unwrap();
+        assert!(canvas.combined > 95.0);
+        assert!(foreground.combined < 10.0);
+        assert_eq!(foreground.score_scope, "foreground");
+    }
+
+    #[test]
+    fn foreground_scope_penalizes_an_opaque_white_background() {
+        let mut reference = solid(100, 100, [0, 0, 0, 0]);
+        let mut candidate = solid(100, 100, [255, 255, 255, 255]);
+        for y in 35..65 {
+            for x in 35..65 {
+                reference.put_pixel(x, y, Rgba([0, 0, 0, 255]));
+                candidate.put_pixel(x, y, Rgba([0, 0, 0, 255]));
+            }
+        }
+        let cfg = RegionConfig::auto(100, 100);
+        let canvas = compare(&reference, &candidate, &cfg).unwrap();
+        let foreground = compare_foreground(&reference, &candidate, &cfg).unwrap();
+        assert_eq!(canvas.combined, 100.0);
+        assert!(foreground.combined < 75.0);
     }
 }
