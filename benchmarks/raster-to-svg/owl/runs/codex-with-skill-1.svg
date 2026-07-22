@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Wide-eyed brown owl</title>
+  <desc id="desc">A clean vector reconstruction of a round brown owl with orange wings, pale face disks, a white belly, and golden feet.</desc>
+
+  <!-- Palette: #000000 #7A4E40 #53352B #D56916 #934810 #F2F0E6 #DCDBD3 #B0B0B0 #B07A2E #D49C22 #FEB142 #FFFFFF -->
+  <defs>
+    <linearGradient id="left-face-shading" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="55%" stop-color="#F2F0E6"/>
+      <stop offset="100%" stop-color="#DCDBD3"/>
+    </linearGradient>
+    <linearGradient id="right-face-shading" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#DCDBD3"/>
+      <stop offset="100%" stop-color="#B0B0B0"/>
+    </linearGradient>
+    <linearGradient id="body-shading" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="48%" stop-color="#7A4E40"/>
+      <stop offset="100%" stop-color="#53352B"/>
+    </linearGradient>
+  </defs>
+
+  <g id="rear-feathers">
+    <path id="left-ear" d="M126 143 C116 166 107 190 101 221 C117 216 134 218 151 230 L162 194 Z" fill="#7A4E40"/>
+    <path id="right-ear" d="M374 143 C386 169 395 193 399 221 C383 216 365 219 349 231 L340 192 Z" fill="#7A4E40"/>
+  </g>
+
+  <g id="wings" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-wing" d="M132 225 C101 215 82 228 77 262 C72 302 90 370 128 399 C139 407 150 412 161 414 C151 391 141 364 140 334 C139 296 148 258 132 225 Z" fill="#D56916"/>
+    <path id="left-wing-shadow" d="M81 301 C86 351 105 389 139 407 C146 411 153 413 161 414 C151 392 144 375 140 356 C121 350 97 326 81 301 Z" fill="#934810" stroke="none"/>
+    <path id="right-wing" d="M368 225 C400 216 418 229 423 263 C428 304 410 371 372 400 C361 408 350 412 339 414 C349 391 359 365 360 334 C361 296 352 258 368 225 Z" fill="#D56916"/>
+    <path id="right-wing-shadow" d="M419 301 C414 351 395 389 361 407 C354 411 347 413 339 414 C349 392 356 375 360 356 C379 350 403 326 419 301 Z" fill="#934810" stroke="none"/>
+  </g>
+
+  <path id="body" d="M179 205 C158 210 145 226 143 259 C140 292 138 327 140 356 C142 389 158 424 185 439 C202 449 225 454 250 454 C277 454 301 449 319 438 C346 421 358 389 360 355 C362 320 359 286 357 255 C354 224 340 209 320 204 Z" fill="url(#body-shading)" stroke="#000000" stroke-width="5" stroke-linejoin="round"/>
+
+  <path id="head" d="M111 82 C121 57 151 24 184 13 L174 12 C189 5 211 4 230 7 L223 2 C239 3 249 6 254 9 C275 5 302 10 319 17 L308 17 C332 27 351 44 363 65 L351 57 C371 80 381 108 383 142 C385 176 375 205 354 222 C336 237 314 236 287 231 C271 228 260 224 250 218 C238 227 220 233 198 234 C170 235 146 228 130 212 C113 195 106 172 108 141 C109 116 116 95 128 79 Z" fill="#7A4E40"/>
+
+  <g id="face-disks" stroke="#000000" stroke-width="4" stroke-linejoin="round">
+    <path id="left-face" d="M239 158 C239 102 219 58 184 54 C149 49 120 76 112 119 C102 169 114 204 139 218 C156 228 179 230 197 224 C226 215 239 192 239 158 Z" fill="url(#left-face-shading)" stroke="none"/>
+    <path id="left-face-outline" d="M112 171 C116 203 132 220 157 226 C171 230 184 231 197 226 C212 236 226 236 238 228" fill="none"/>
+    <path id="right-face" d="M241 157 C242 101 260 59 296 55 C333 50 363 78 372 120 C381 164 370 203 344 220 C326 231 304 234 285 228 C257 219 241 191 241 157 Z" fill="url(#right-face-shading)" stroke="none"/>
+    <path id="right-face-outline" d="M241 205 C254 222 267 229 285 232 C307 236 330 230 345 219 C367 202 378 177 378 151" fill="none"/>
+  </g>
+
+  <g id="eyes">
+    <ellipse id="left-iris" cx="185" cy="124" rx="25" ry="39" fill="#D56916"/>
+    <ellipse id="right-iris" cx="295" cy="125" rx="27" ry="39" fill="#B07A2E"/>
+    <g id="left-eye-rings" stroke="#000000">
+      <circle cx="190" cy="134" r="21" fill="#FFFFFF" stroke-width="3"/>
+      <circle cx="190" cy="134" r="16" fill="#000000" stroke-width="2"/>
+      <circle cx="190" cy="134" r="9" fill="#53352B" stroke-width="2"/>
+      <circle cx="192" cy="132" r="3.5" fill="#FFFFFF" stroke="none"/>
+    </g>
+    <g id="right-eye-rings" stroke="#000000">
+      <circle cx="294" cy="135" r="21" fill="#FFFFFF" stroke-width="3"/>
+      <circle cx="294" cy="135" r="16" fill="#000000" stroke-width="2"/>
+      <circle cx="294" cy="135" r="9" fill="#53352B" stroke-width="2"/>
+      <circle cx="296" cy="133" r="3.5" fill="#FFFFFF" stroke="none"/>
+    </g>
+  </g>
+
+  <path id="beak" d="M241 153 C255 153 262 163 260 177 C257 192 250 202 240 211 C229 203 223 193 221 177 C219 163 226 154 241 153 Z" fill="#D49C22" stroke="#B07A2E" stroke-width="2"/>
+
+  <g id="shoulder-feathers" fill="#DCDBD3" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-shoulder-feathers" d="M131 216 C122 217 115 221 111 228 C119 226 127 226 133 228 C123 237 117 248 113 263 C123 253 132 245 138 243 C134 253 133 264 135 274 C142 260 149 251 157 246 C151 231 143 220 131 216 Z"/>
+    <path id="right-shoulder-feathers" d="M369 216 C378 217 385 221 389 228 C381 226 373 226 367 228 C377 237 383 248 387 263 C377 253 368 245 362 243 C366 253 367 264 365 274 C358 260 351 251 343 246 C349 231 357 220 369 216 Z"/>
+  </g>
+
+  <path id="belly" d="M198 298 C194 290 204 280 217 275 C240 266 259 268 278 276 C291 281 307 292 303 299 C302 303 311 311 318 318 C321 321 321 325 316 328 C315 330 319 339 323 347 C326 354 327 359 328 364 L316 364 C315 378 313 387 309 398 C314 409 316 420 313 429 C305 430 305 438 299 445 C284 448 270 454 252 455 C236 455 219 450 205 445 C200 437 196 430 190 429 C187 420 188 410 191 399 C186 387 183 376 183 364 L175 365 C177 355 180 344 185 332 C180 330 181 326 185 321 C193 311 202 303 198 298 Z" fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="belly-shadow" d="M190 396 C225 410 273 408 310 397 C313 408 316 420 313 429 C306 431 304 438 299 445 C284 449 269 454 252 455 C236 455 220 451 205 445 C200 437 197 431 190 429 C188 419 188 407 190 396 Z" fill="#B0B0B0"/>
+
+  <g id="feet" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <g id="left-foot" fill="#FEB142">
+      <path id="left-outer-toe" d="M205 449 C192 450 187 462 190 479 C192 491 198 497 203 491 C206 481 208 465 211 452 Z"/>
+      <path id="left-middle-toe" d="M211 450 C204 458 203 477 208 489 C212 498 220 497 224 489 C228 478 227 461 222 452 Z"/>
+      <path id="left-inner-toe" d="M222 451 C226 461 228 478 226 489 C230 497 237 492 240 481 C243 467 239 456 231 450 Z"/>
+    </g>
+    <g id="right-foot" fill="#FEB142">
+      <path id="right-inner-toe" d="M278 451 C274 461 272 478 274 489 C270 497 263 492 260 481 C257 467 261 456 269 450 Z"/>
+      <path id="right-middle-toe" d="M289 450 C296 458 297 477 292 489 C288 498 280 497 276 489 C272 478 273 461 278 452 Z"/>
+      <path id="right-outer-toe" d="M295 449 C308 450 313 462 310 479 C308 491 302 497 297 491 C294 481 292 465 289 452 Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Wide-eyed brown owl</title>
+  <desc id="desc">A hand-drawn brown owl with pale eye disks, orange wings, a white belly, and golden feet.</desc>
+
+  <defs>
+    <linearGradient id="left-disk-light" x1="140" y1="70" x2="222" y2="225" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fefefe"/>
+      <stop offset="0.72" stop-color="#fefefe"/>
+      <stop offset="1" stop-color="#9b9474"/>
+    </linearGradient>
+    <linearGradient id="right-disk-light" x1="268" y1="70" x2="350" y2="225" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dcdbd3"/>
+      <stop offset="1" stop-color="#b0b0b0"/>
+    </linearGradient>
+    <linearGradient id="left-wing-light" x1="150" y1="230" x2="91" y2="397" gradientUnits="userSpaceOnUse">
+      <stop offset="0.42" stop-color="#d56916"/>
+      <stop offset="1" stop-color="#934810"/>
+    </linearGradient>
+    <clipPath id="belly-clip">
+      <path d="M200 299C191 309 188 318 181 327L187 332C181 342 177 354 175 364L185 365C181 379 179 396 184 411L190 410C193 422 198 433 207 436C216 449 233 454 248 450C260 457 276 451 284 442C296 439 304 430 307 417L314 416C320 402 319 383 314 370L327 363C325 351 321 340 315 332L321 327C314 315 309 307 302 300C307 292 293 282 279 276C258 267 239 268 221 276C208 282 196 291 200 299Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Feet sit behind the body. -->
+  <g id="feet" fill="#feb142" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-outer-toe" d="M207 443C195 445 188 459 190 475C191 489 198 497 203 491C209 483 210 460 207 443Z"/>
+    <path id="left-middle-toe" d="M225 444C211 443 203 457 204 476C205 491 215 497 221 489C227 480 229 458 225 444Z"/>
+    <path id="left-inner-toe" d="M238 446C226 443 222 459 224 477C225 492 232 497 237 487C243 476 244 458 238 446Z"/>
+    <path id="right-inner-toe" d="M263 446C256 457 258 478 264 489C269 498 277 491 277 477C278 459 274 444 263 446Z"/>
+    <path id="right-middle-toe" d="M278 444C274 459 277 480 283 490C289 498 299 491 299 476C300 458 292 443 278 444Z"/>
+    <path id="right-outer-toe" d="M296 443C293 460 294 483 301 491C306 497 313 489 314 475C316 459 308 445 296 443Z"/>
+  </g>
+
+  <!-- Broad wings are behind the torso. -->
+  <g id="wings" stroke="#000000" stroke-width="5" stroke-linejoin="round">
+    <path id="left-wing" fill="url(#left-wing-light)" d="M145 222C110 216 86 224 78 257C68 299 84 360 111 389C125 404 142 412 160 415C148 379 140 339 142 296C143 265 149 241 145 222Z"/>
+    <path id="right-wing" fill="#d56916" d="M355 222C390 216 414 224 422 257C432 299 416 360 389 389C375 404 358 412 340 415C352 379 360 339 358 296C357 265 351 241 355 222Z"/>
+  </g>
+
+  <path id="body" d="M151 191C139 228 137 280 139 331C140 386 145 426 177 446C196 458 222 463 250 460C278 463 304 458 323 446C355 426 360 386 361 331C363 280 361 228 349 191Z" fill="#7a4e40" stroke="#000000" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- Small side tufts extend from the head above the wings. -->
+  <g id="side-tufts" fill="#7a4e40">
+    <path id="left-side-tuft" d="M119 161C109 179 103 201 100 221C113 217 125 216 138 220Z"/>
+    <path id="right-side-tuft" d="M381 161C391 179 397 201 400 221C387 217 375 216 362 220Z"/>
+  </g>
+
+  <!-- Head contour retains the slightly uneven, hand-drawn crown and unequal cheeks. -->
+  <path id="head" d="M113 80C129 48 156 21 198 11L177 9C203 1 227 3 244 5L248 1L253 6C292 3 332 17 359 46L344 37C364 58 377 86 383 118C390 153 383 187 364 208C348 226 322 235 291 234C269 234 253 226 240 220C228 230 207 235 187 232C148 227 119 208 109 178C101 153 106 105 113 80Z" fill="#7a4e40" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g id="eye-disks" stroke="#53352b" stroke-width="2" stroke-linejoin="round">
+    <path id="left-eye-disk" d="M184 51C142 50 116 82 111 124C106 165 115 204 145 218C170 230 207 221 223 197C238 175 243 142 237 111C230 74 210 53 184 51Z" fill="url(#left-disk-light)"/>
+    <path id="right-eye-disk" d="M305 53C269 53 246 78 240 115C235 145 238 182 254 207C270 231 307 237 337 218C363 202 375 169 373 133C371 91 345 55 305 53Z" fill="url(#right-disk-light)"/>
+  </g>
+
+  <g id="eyes" stroke="#d49c22" stroke-width="2">
+    <ellipse id="left-orange-eye" cx="186" cy="124" rx="27" ry="39" fill="#f76b00"/>
+    <ellipse id="right-orange-eye" cx="295" cy="125" rx="29" ry="39" fill="#d56916"/>
+    <ellipse id="left-white-ring" cx="190" cy="134" rx="22" ry="21" fill="#fefefe" stroke="#000000"/>
+    <ellipse id="right-white-ring" cx="294" cy="135" rx="21" ry="21" fill="#dcdbd3" stroke="#000000"/>
+    <circle id="left-pupil" cx="191" cy="135" r="15" fill="#000000"/>
+    <circle id="right-pupil" cx="295" cy="136" r="15" fill="#000000"/>
+    <circle id="left-eye-glint" cx="193" cy="132" r="4" fill="#fefefe" stroke="none"/>
+    <circle id="right-eye-glint" cx="297" cy="133" r="4" fill="#fefefe" stroke="none"/>
+  </g>
+
+  <g id="beak" stroke="#53352b" stroke-width="3" stroke-linejoin="round">
+    <path id="upper-beak" d="M241 153C226 153 220 163 221 176C222 189 231 202 240 209C250 201 259 188 260 174C261 162 255 154 241 153Z" fill="#d49c22"/>
+    <path id="lower-beak" d="M240 209C248 203 254 195 258 187C256 207 247 220 240 224C233 218 227 209 224 196C228 201 234 207 240 209Z" fill="#934810" stroke="none"/>
+  </g>
+
+  <!-- Ragged shoulder feathers overlap the disks and torso. -->
+  <g id="shoulder-feathers" fill="#dcdbd3" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-shoulder-feathers" d="M145 217C135 215 124 219 116 226C125 225 132 226 136 229C126 234 118 245 113 263C122 254 130 247 136 244C132 254 132 264 134 274C139 261 145 252 152 248Z"/>
+    <path id="right-shoulder-feathers" d="M355 217C365 215 376 219 384 226C375 225 368 226 364 229C374 234 382 245 387 263C378 254 370 247 364 244C368 254 368 264 366 274C361 261 355 252 348 248Z"/>
+  </g>
+
+  <g id="belly">
+    <path id="belly-white" d="M170 265H332V407H170Z" fill="#fefefe" clip-path="url(#belly-clip)"/>
+    <path id="belly-gray" d="M170 390C211 412 271 410 332 389V465H170Z" fill="#b0b0b0" clip-path="url(#belly-clip)"/>
+    <path id="belly-outline" d="M200 299C191 309 188 318 181 327L187 332C181 342 177 354 175 364L185 365C181 379 179 396 184 411L190 410C193 422 198 433 207 436C216 449 233 454 248 450C260 457 276 451 284 442C296 439 304 430 307 417L314 416C320 402 319 383 314 370L327 363C325 351 321 340 315 332L321 327C314 315 309 307 302 300C307 292 293 282 279 276C258 267 239 268 221 276C208 282 196 291 200 299Z" fill="none" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

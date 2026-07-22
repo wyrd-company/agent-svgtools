@@ -1,0 +1,23 @@
+# ---
+# relationships:
+#   publishes-to: wyrd-foo-agent-svgtools
+#   references: README
+# ---
+name: agent-svgtools
+tagline: Close the loop for agents authoring SVG from images.
+blurb: >-
+  A machine-first Rust CLI that helps agents reconstruct raster artwork as
+  maintainable SVG by inspecting structure, rendering candidates, scoring
+  visual agreement, and localizing differences.
+category: Agent Tooling
+language: Rust
+status: stable
+repo: https://github.com/wyrd-company/agent-svgtools
+order: 5
+install:
+  - label: Homebrew
+    command: brew install wyrd-company/tools/agent-svgtools
+  - label: Cargo (Git)
+    command: cargo install --git https://github.com/wyrd-company/agent-svgtools.git
+assets:
+  - assets/demo.gif

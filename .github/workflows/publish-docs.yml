@@ -1,0 +1,24 @@
+# ---
+# relationships:
+#   publishes: docs
+#   uses: wyrd-foo-publish-docs
+# ---
+name: Publish docs
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wyrd-company/wyrd.foo/.github/actions/publish-docs@v1
+        with:
+          app-id: ${{ secrets.WYRD_TOOLS_DOCS_PUBLISHER_APP_ID }}
+          private-key: ${{ secrets.WYRD_TOOLS_DOCS_PUBLISHER_PRIVATE_KEY }}

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <g id="feet" fill="#FEB142" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-outer-toe" d="M205 445 C192 447 187 461 190 478 C192 491 198 497 204 489 C210 480 211 457 205 445 Z"/>
+    <path id="left-middle-toe" d="M220 446 C208 447 202 462 204 479 C206 493 215 498 221 488 C227 478 229 456 220 446 Z"/>
+    <path id="left-inner-toe" d="M234 445 C226 448 224 461 224 477 C224 491 231 496 236 487 C242 477 244 452 234 445 Z"/>
+    <path id="right-inner-toe" d="M271 445 C261 452 263 478 269 488 C275 497 282 491 281 477 C280 461 279 448 271 445 Z"/>
+    <path id="right-middle-toe" d="M285 446 C276 456 278 478 284 488 C290 498 299 493 301 479 C303 462 297 447 285 446 Z"/>
+    <path id="right-outer-toe" d="M300 445 C294 457 295 480 301 489 C307 497 313 491 315 478 C318 461 313 447 300 445 Z"/>
+  </g>
+
+  <g id="wings" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-wing" d="M137 225 C107 213 83 221 78 257 C70 307 91 388 159 414 C147 382 140 348 140 312 C140 279 147 245 137 225 Z" fill="#D56916"/>
+    <path id="left-wing-shadow" d="M80 288 C85 338 108 392 159 414 C150 398 145 382 142 362 C115 350 94 326 80 288 Z" fill="#934810" stroke="none"/>
+    <path id="right-wing" d="M363 225 C393 213 417 221 422 257 C430 307 409 388 341 414 C353 382 360 348 360 312 C360 279 353 245 363 225 Z" fill="#D56916"/>
+    <path id="right-wing-shadow" d="M420 288 C415 338 392 392 341 414 C350 398 355 382 358 362 C385 350 406 326 420 288 Z" fill="#934810" stroke="none"/>
+  </g>
+
+  <g id="body">
+    <path id="body-fill" d="M102 221 C110 194 114 178 111 153 C108 126 113 98 125 74 L114 83 C128 59 148 38 174 21 L154 31 C169 20 188 13 207 9 L177 9 C197 2 220 1 241 4 L247 1 L253 6 C278 4 299 10 317 18 L303 16 C328 26 350 44 365 67 L349 57 C373 84 385 116 386 151 C387 178 391 198 399 221 C383 215 370 221 361 238 C364 276 363 326 358 373 C354 418 330 447 286 453 C272 456 261 454 250 450 C239 454 228 456 214 453 C170 447 146 418 142 373 C137 326 136 276 139 238 C130 221 117 215 102 221 Z" fill="#7A4E40"/>
+    <path id="body-lower-outline" d="M102 221 C117 215 130 221 139 238 C136 276 137 326 142 373 C146 418 170 447 214 453 C228 456 239 454 250 450 C261 454 272 456 286 453 C330 447 354 418 358 373 C363 326 364 276 361 238 C370 221 383 215 399 221" fill="none" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g id="facial-discs" stroke="#000000" stroke-width="4" stroke-linejoin="round">
+    <path id="left-facial-disc" d="M178 52 C135 53 109 92 109 146 C108 199 132 224 174 230 C210 235 233 211 239 160 C245 107 222 53 178 52 Z" fill="#FEFEFE"/>
+    <path id="left-disc-shadow" d="M151 216 C177 231 213 235 238 213 C228 232 199 238 174 230 C164 229 156 225 151 216 Z" fill="#9B9474" stroke="none"/>
+    <path id="right-facial-disc" d="M307 54 C350 56 373 94 374 145 C376 195 351 224 313 231 C277 238 253 215 246 164 C239 111 263 53 307 54 Z" fill="#DCDBD3"/>
+    <path id="right-disc-shadow" d="M370 99 C380 150 371 197 337 218 C310 235 273 216 256 193 C269 211 288 221 313 221 C350 219 374 191 374 145 C374 128 373 114 370 99 Z" fill="#B0B0B0" stroke="none"/>
+  </g>
+
+  <g id="eyes" stroke="#000000" stroke-linejoin="round">
+    <ellipse id="left-eye-patch" cx="187" cy="123" rx="28" ry="38" fill="#F96A00" stroke="none"/>
+    <ellipse id="left-eye-ring" cx="190" cy="134" rx="23" ry="22" fill="#FEFEFE" stroke-width="3"/>
+    <ellipse id="left-iris" cx="190" cy="134" rx="17" ry="18" fill="#000000" stroke-width="2"/>
+    <circle id="left-eye-highlight" cx="193" cy="132" r="4" fill="#FEFEFE" stroke="none"/>
+    <ellipse id="right-eye-patch" cx="295" cy="125" rx="28" ry="39" fill="#B07A2E" stroke="none"/>
+    <ellipse id="right-eye-ring" cx="293" cy="135" rx="22" ry="22" fill="#FEFEFE" stroke-width="3"/>
+    <ellipse id="right-iris" cx="293" cy="135" rx="16" ry="18" fill="#000000" stroke-width="2"/>
+    <circle id="right-eye-highlight" cx="296" cy="133" r="4" fill="#FEFEFE" stroke="none"/>
+  </g>
+
+  <path id="beak" d="M241 153 C229 153 221 162 221 176 C222 194 231 207 241 215 C251 207 259 193 260 176 C260 162 253 153 241 153 Z" fill="#D49C22" stroke="#7A4E40" stroke-width="3"/>
+  <path id="beak-shadow" d="M241 207 C250 199 256 187 259 176 C260 193 252 208 241 216 C234 210 229 203 226 197 C231 202 236 206 241 207 Z" fill="#B07A2E"/>
+
+  <g id="brow-feathers" fill="#DCDBD3" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="left-brow-feathers" d="M137 222 C128 216 118 217 113 229 C122 225 128 226 133 229 C122 235 116 247 113 263 C123 253 130 247 136 244 C131 256 132 266 135 274 C141 257 147 246 153 240 C149 230 144 224 137 222 Z"/>
+    <path id="right-brow-feathers" d="M363 222 C372 216 382 217 387 229 C378 225 372 226 367 229 C378 235 384 247 387 263 C377 253 370 247 364 244 C369 256 368 266 365 274 C359 257 353 246 347 240 C351 230 356 224 363 222 Z"/>
+  </g>
+
+  <g id="belly" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="belly-feathers" d="M200 298 C197 286 213 274 230 270 C251 265 276 271 302 297 C298 303 300 308 307 315 C301 322 306 327 316 330 C310 338 315 348 327 363 C321 365 316 365 314 367 C315 376 319 385 321 398 C315 398 312 400 311 405 C311 416 306 424 301 429 C296 429 291 433 288 442 C278 447 264 452 250 453 C236 452 222 447 212 442 C209 433 204 429 199 429 C194 424 189 416 189 405 C188 400 185 398 179 398 C181 385 185 376 186 367 C184 365 179 365 173 363 C185 348 190 338 184 330 C194 327 199 322 193 315 C200 308 202 303 200 298 Z" fill="#FEFEFE"/>
+    <path id="belly-shadow" d="M184 394 C218 409 277 410 315 395 L311 405 C311 416 306 424 301 429 C296 429 291 433 288 442 C278 447 264 452 250 453 C236 452 222 447 212 442 C209 433 204 429 199 429 C194 424 189 416 189 405 Z" fill="#B0B0B0" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7b5044"/>
+      <stop offset="0.7" stop-color="#7a4e40"/>
+      <stop offset="1" stop-color="#5a372c"/>
+    </linearGradient>
+    <linearGradient id="discLeftGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbf9f2"/>
+      <stop offset="1" stop-color="#e6e2cd"/>
+    </linearGradient>
+    <linearGradient id="discRightGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f2f0e6"/>
+      <stop offset="1" stop-color="#a4a49e"/>
+    </linearGradient>
+    <linearGradient id="eyeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8851e"/>
+      <stop offset="1" stop-color="#c25a10"/>
+    </linearGradient>
+    <linearGradient id="beakGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2b52c"/>
+      <stop offset="1" stop-color="#d18a10"/>
+    </linearGradient>
+    <linearGradient id="wingGradL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d96d16"/>
+      <stop offset="1" stop-color="#cd6413"/>
+    </linearGradient>
+    <linearGradient id="wingGradR" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#d96d16"/>
+      <stop offset="1" stop-color="#cd6413"/>
+    </linearGradient>
+    <linearGradient id="toeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b97a0f"/>
+      <stop offset="0.45" stop-color="#eda51f"/>
+      <stop offset="1" stop-color="#f4b62e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Feet (tucked behind body) -->
+  <g id="feet" stroke="#17100c" stroke-width="4">
+    <g id="foot-left">
+      <rect x="184" y="446" width="18" height="46" rx="9" fill="url(#toeGrad)" transform="rotate(10 193 469)"/>
+      <rect x="204" y="446" width="21" height="49" rx="10" fill="url(#toeGrad)"/>
+      <rect x="227" y="446" width="18" height="46" rx="9" fill="url(#toeGrad)" transform="rotate(-10 236 469)"/>
+    </g>
+    <g id="foot-right">
+      <rect x="256" y="446" width="18" height="46" rx="9" fill="url(#toeGrad)" transform="rotate(10 265 469)"/>
+      <rect x="276" y="446" width="21" height="49" rx="10" fill="url(#toeGrad)"/>
+      <rect x="298" y="446" width="18" height="46" rx="9" fill="url(#toeGrad)" transform="rotate(-10 307 469)"/>
+    </g>
+  </g>
+
+  <!-- Body silhouette with small head feather spikes -->
+  <path id="body" fill="url(#bodyGrad)" stroke="#17100c" stroke-width="4" stroke-linejoin="round"
+    d="M 250 454
+       C 198 445 152 426 120 397
+       C 94 370 77 338 75 306
+       C 71 280 74 256 83 237
+       C 90 224 97 214 102 202
+       C 109 183 110 162 111 142
+       C 112 119 115 99 121 81
+       L 115 76 L 124 70
+       C 129 52 142 38 165 30
+       C 171 24 178 18 184 15
+       L 180 10 L 189 8
+       C 206 4 224 3 242 4
+       L 248 1 L 252 8
+       C 260 9 268 10 275 12
+       L 306 18 L 300 24
+       C 305 28 310 30 315 32
+       C 326 38 336 48 346 62
+       L 363 63 L 355 74
+       C 368 91 375 111 379 132
+       C 383 158 385 182 392 199
+       C 401 214 411 228 417 242
+       C 426 262 429 284 427 306
+       C 425 338 408 370 380 397
+       C 348 426 302 445 250 453 Z"/>
+
+  <!-- Facial discs -->
+  <g id="face">
+    <ellipse cx="175" cy="150" rx="61" ry="98" fill="url(#discLeftGrad)"/>
+    <ellipse cx="315" cy="150" rx="61" ry="98" fill="url(#discRightGrad)"/>
+    <ellipse cx="182" cy="226" rx="34" ry="15" fill="#d8d4c0" opacity="0.4"/>
+    <ellipse cx="306" cy="226" rx="34" ry="15" fill="#c6c4b6" opacity="0.4"/>
+    <path d="M 140 220 C 160 244 190 250 214 240 C 222 236 228 230 232 224" fill="none" stroke="#17100c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 360 220 C 340 244 310 250 286 240 C 278 236 272 230 268 224" fill="none" stroke="#17100c" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Eyes -->
+  <g id="eyes">
+    <ellipse cx="188" cy="130" rx="29" ry="48" fill="url(#eyeGrad)"/>
+    <ellipse cx="292" cy="130" rx="29" ry="48" fill="url(#eyeGrad)"/>
+    <g id="pupil-left">
+      <ellipse cx="190" cy="133" rx="20" ry="18" fill="#17100c"/>
+      <ellipse cx="190" cy="133" rx="15.5" ry="14" fill="#ffffff"/>
+      <circle cx="190" cy="134" r="12" fill="#241a12"/>
+      <circle cx="186" cy="129" r="3" fill="#ffffff"/>
+    </g>
+    <g id="pupil-right">
+      <ellipse cx="292" cy="133" rx="20" ry="18" fill="#17100c"/>
+      <ellipse cx="292" cy="133" rx="15.5" ry="14" fill="#ffffff"/>
+      <circle cx="292" cy="134" r="12" fill="#241a12"/>
+      <circle cx="288" cy="129" r="3" fill="#ffffff"/>
+    </g>
+  </g>
+
+  <!-- Beak -->
+  <path id="beak" fill="url(#beakGrad)" stroke="#17100c" stroke-width="4"
+    d="M 238 149 C 252 149 257 161 255 175 C 253 191 247 203 238 210 C 229 203 223 191 221 175 C 219 161 224 149 238 149 Z"/>
+
+  <!-- Wings -->
+  <g id="wings" stroke="#17100c" stroke-width="4" stroke-linejoin="round">
+    <path id="wing-left" fill="url(#wingGradL)"
+      d="M 105 224 C 88 231 77 254 76 286 C 75 322 89 355 113 375 C 124 383 135 390 140 387 C 143 352 142 300 139 261 C 137 241 122 227 105 224 Z"/>
+    <path id="wing-right" fill="url(#wingGradR)"
+      d="M 395 224 C 412 231 423 254 424 286 C 425 322 411 355 387 375 C 376 383 365 390 360 387 C 357 352 358 300 361 261 C 363 241 378 227 395 224 Z"/>
+  </g>
+
+  <!-- Wing-top feather tufts -->
+  <g id="tufts" fill="#e8e5d8" stroke="#17100c" stroke-width="3.5" stroke-linejoin="round">
+    <path id="tuft-left"
+      d="M 116 217 L 138 211 L 152 220 L 136 228 L 149 239 L 132 246 L 146 267 L 129 255 L 119 260 L 111 248 L 123 240 L 109 229 L 123 223 Z"/>
+    <path id="tuft-right"
+      d="M 384 217 L 362 211 L 348 220 L 364 228 L 351 239 L 368 246 L 354 267 L 371 255 L 381 260 L 389 248 L 377 240 L 391 229 L 377 223 Z"/>
+  </g>
+
+  <!-- Belly patch -->
+  <g id="belly">
+    <path fill="#ffffff" stroke="#17100c" stroke-width="5" stroke-linejoin="round"
+      d="M 250 272
+         C 232 274 214 282 205 294
+         L 210 303 L 197 312 L 186 324 L 190 333 L 180 356 L 188 366 L 183 388 L 191 400
+         C 196 416 206 428 220 438
+         C 230 446 240 450 250 451
+         C 260 450 270 446 280 438
+         C 294 428 304 416 309 400
+         L 317 388 L 312 366 L 320 356 L 310 333 L 314 324 L 303 312 L 290 303 L 295 294
+         C 286 282 268 274 250 272 Z"/>
+    <path fill="#b0b0b0"
+      d="M 190 390 C 216 406 284 406 310 390 C 305 418 280 444 250 450 C 220 444 195 418 190 390 Z"/>
+  </g>
+</svg>

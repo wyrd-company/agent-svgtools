@@ -1,6 +1,6 @@
 # agent-svgtools (npm)
 
-npm wrapper for [`agent-svgtools`](https://github.com/wyrd-company/agent-trace), a
+npm wrapper for [`agent-svgtools`](https://github.com/wyrd-company/agent-svgtools), a
 machine-first CLI that closes the feedback loop for AI agents authoring SVGs
 from raster references.
 

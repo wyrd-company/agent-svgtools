@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "relationships": {
+    "evaluates": ".agents/skills/agent-svgtools/SKILL.md",
+    "uses": "demo/targets/owl.png",
+    "documents": "benchmarks/raster-to-svg/owl/README.md"
+  },
+  "metric": {
+    "scope": "foreground",
+    "alpha_aware": true,
+    "combined_weights": {
+      "pixel_match": 0.5,
+      "ssim": 0.5
+    }
+  },
+  "prompt": "Recreate the provided owl raster as a clean, maintainable SVG. Use agent-svgtools to evaluate and improve the result. Automatic trace may be used only as a disposable diagnostic on an isolated crop or binary silhouette; do not copy, simplify, or edit traced geometry into the final SVG. Save owl.svg and a brief worklog.md listing the commands you ran and your final assessment. You may create any other artifacts useful to your workflow. Visually verify the finished SVG.",
+  "runs": [
+    {
+      "id": "codex-with-skill-1",
+      "harness": "codex",
+      "model": null,
+      "model_note": "The harness did not expose an exact model identifier.",
+      "condition": "with_skill",
+      "specimen": "runs/codex-with-skill-1.svg",
+      "sha256": "772acbc1428008b00694ee73fdbaec0ad6985030f20d8b433a4b471314609e4f",
+      "requirements": { "passed": 8, "total": 8 },
+      "scores": { "pixel_match": 85.42, "ssim": 57.7, "combined": 71.56 },
+      "inspect": {
+        "authored_graphics": 33,
+        "authored_paths": 23,
+        "path_commands": 172,
+        "groups": 10,
+        "reusable_definitions": 0,
+        "named_components": 35,
+        "colors": 12,
+        "vector_only": true
+      }
+    },
+    {
+      "id": "codex-with-skill-2",
+      "harness": "codex",
+      "model": null,
+      "model_note": "The harness did not expose an exact model identifier.",
+      "condition": "with_skill",
+      "specimen": "runs/codex-with-skill-2.svg",
+      "sha256": "7463d0e2aa3434b1b490acfcd1054163ccea57432569cf863a7660a19084eb69",
+      "requirements": { "passed": 8, "total": 8 },
+      "scores": { "pixel_match": 82.99, "ssim": 56.53, "combined": 69.76 },
+      "inspect": {
+        "authored_graphics": 29,
+        "authored_paths": 22,
+        "path_commands": 170,
+        "groups": 8,
+        "reusable_definitions": 0,
+        "named_components": 37,
+        "colors": 12,
+        "vector_only": true
+      }
+    },
+    {
+      "id": "codex-without-skill-1",
+      "harness": "codex",
+      "model": null,
+      "model_note": "The harness did not expose an exact model identifier.",
+      "condition": "without_skill",
+      "specimen": "runs/codex-without-skill-1.svg",
+      "sha256": "8209c6937b3a6d59ccbfc8ae19df45bf8b8b2a526d2cae77aa9a04a16fe2c324",
+      "requirements": { "passed": 4, "total": 8 },
+      "scores": { "pixel_match": 85.42, "ssim": 58.83, "combined": 72.12 },
+      "inspect": {
+        "authored_graphics": 30,
+        "authored_paths": 21,
+        "path_commands": 179,
+        "groups": 1,
+        "reusable_definitions": 1,
+        "named_components": 1,
+        "colors": 29,
+        "vector_only": true
+      }
+    },
+    {
+      "id": "codex-without-skill-2",
+      "harness": "codex",
+      "model": null,
+      "model_note": "The harness did not expose an exact model identifier.",
+      "condition": "without_skill",
+      "specimen": "runs/codex-without-skill-2.svg",
+      "sha256": "1ec8f13e8efe857bbb3e2d0544fd66fb5271b82e6cfd38a8f263c2e6465292e6",
+      "requirements": { "passed": 4, "total": 8 },
+      "scores": { "pixel_match": 88.63, "ssim": 65.39, "combined": 77.01 },
+      "inspect": {
+        "authored_graphics": 33,
+        "authored_paths": 24,
+        "path_commands": 171,
+        "groups": 8,
+        "reusable_definitions": 1,
+        "named_components": 1,
+        "colors": 19,
+        "vector_only": true
+      }
+    },
+    {
+      "id": "kimi-k3-with-skill",
+      "harness": "pi",
+      "model": "opencode-go/kimi-k3",
+      "session_id": "815c83a6-8236-4ea5-81ef-b7f9cc674561",
+      "condition": "with_skill",
+      "specimen": "runs/kimi-k3-with-skill.svg",
+      "sha256": "bbc0a05601e69b9481834f47502be3f55551d483d10e967a63296d8013ff8e6a",
+      "execution": {
+        "duration_seconds": 1782.882,
+        "tool_calls": 52,
+        "cumulative_tokens": 1589759,
+        "cost_usd": 1.2823551
+      },
+      "scores": { "pixel_match": 73.95, "ssim": 43.66, "combined": 58.81 },
+      "inspect": {
+        "authored_graphics": 25,
+        "authored_paths": 16,
+        "path_commands": 112,
+        "groups": 9,
+        "reusable_definitions": 4,
+        "named_components": 29,
+        "colors": 18,
+        "vector_only": true
+      }
+    },
+    {
+      "id": "kimi-k3-without-skill",
+      "harness": "pi",
+      "model": "opencode-go/kimi-k3",
+      "session_id": "bd7187d0-8f0d-4fc2-947f-2ea4bcb3a719",
+      "condition": "without_skill",
+      "specimen": "runs/kimi-k3-without-skill.svg",
+      "sha256": "83107a6e12d31d6abe8bc8f4960229322146b9b2a175c8735e660f8969028cd6",
+      "execution": {
+        "duration_seconds": 2870.969,
+        "timebox_intervention_seconds": 2700,
+        "tool_calls": 84,
+        "cumulative_tokens": 4698402,
+        "cost_usd": 3.3210354
+      },
+      "scores": { "pixel_match": 84.29, "ssim": 53.75, "combined": 69.02 },
+      "inspect": {
+        "authored_graphics": 30,
+        "authored_paths": 10,
+        "path_commands": 113,
+        "groups": 10,
+        "reusable_definitions": 0,
+        "named_components": 16,
+        "colors": 23,
+        "vector_only": true
+      }
+    }
+  ],
+  "codex_summary": {
+    "with_skill": { "mean_requirement_pass_rate": 1.0, "mean_combined": 70.66 },
+    "without_skill": {
+      "mean_requirement_pass_rate": 0.5,
+      "mean_combined": 74.565
+    },
+    "blind_review": {
+      "visual_fidelity": "tie",
+      "winner": "with_skill",
+      "with_skill_score": 8.0,
+      "without_skill_score": 6.0
+    }
+  },
+  "raw_evidence": "/workspaces/references/agent-svgtools/owl-reconstruction-benchmark-2026-07-22/"
+}

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <title>Brown and orange owl</title>
+  <defs>
+    <linearGradient id="leftFace" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2f0e6"/>
+      <stop offset=".72" stop-color="#dcdbd3"/>
+      <stop offset="1" stop-color="#aaa991"/>
+    </linearGradient>
+    <linearGradient id="rightFace" x1=".2" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#e8e8e2"/>
+      <stop offset="1" stop-color="#b0b0b0"/>
+    </linearGradient>
+    <linearGradient id="leftWing" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d96d16"/>
+      <stop offset=".72" stop-color="#d56916"/>
+      <stop offset="1" stop-color="#934810"/>
+    </linearGradient>
+    <linearGradient id="rightWing" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d96d16"/>
+      <stop offset=".72" stop-color="#d56916"/>
+      <stop offset="1" stop-color="#934810"/>
+    </linearGradient>
+    <path id="bellyShape" d="M250 270 C273 269 294 280 305 298 C299 303 302 309 311 318
+        C316 322 318 326 320 329 C311 335 316 346 322 357 L327 363 L315 365
+        C316 376 321 389 319 397 C311 397 308 411 307 423 C301 425 294 435 291 442
+        C283 441 275 449 268 452 C262 450 255 453 250 455 C244 452 238 451 231 452
+        C224 447 217 443 210 443 C207 435 201 429 195 428 C192 419 187 406 181 402
+        C184 392 187 375 185 364 L175 365 C176 355 183 340 185 331 L181 328
+        C190 316 202 307 199 299 C212 281 228 272 250 270 Z"/>
+    <clipPath id="bellyClip">
+      <use href="#bellyShape"/>
+    </clipPath>
+  </defs>
+
+  <!-- Feet sit behind the body. -->
+  <g fill="#feb142" stroke="#000" stroke-width="4" stroke-linejoin="round">
+    <path d="M205 445 C202 453 200 473 205 488 C201 506 190 505 188 482 C186 464 192 449 196 443 Z"/>
+    <path d="M217 446 C225 451 228 474 221 493 C217 506 208 501 204 485 C200 471 205 452 209 445 Z"/>
+    <path d="M229 445 C240 450 243 470 237 490 C233 507 223 502 222 488 C219 473 223 454 225 446 Z"/>
+    <path d="M273 445 C267 455 263 475 268 490 C272 506 281 501 282 486 C284 469 280 452 278 446 Z"/>
+    <path d="M285 445 C278 456 279 477 285 493 C290 507 299 501 298 485 C299 466 294 451 291 445 Z"/>
+    <path d="M298 444 C306 448 315 462 315 481 C315 503 304 507 300 490 C297 476 299 455 294 446 Z"/>
+  </g>
+
+  <!-- Rear body and ear tufts. -->
+  <path fill="#7a4e40" d="M97 223 C101 198 116 173 126 158 L158 196 L142 238 Z"/>
+  <path fill="#7a4e40" d="M403 223 C399 198 384 173 374 158 L342 198 L358 238 Z"/>
+  <path fill="#7a4e40" stroke="#000" stroke-width="5" stroke-linejoin="round"
+        d="M147 195 C129 239 137 357 159 412 C160 432 190 445 218 452
+           C238 459 262 459 284 453 C316 446 342 433 342 411
+           C363 353 369 245 352 195 C319 180 178 181 147 195 Z"/>
+
+  <!-- Side wings. -->
+  <path fill="url(#leftWing)" stroke="#000" stroke-width="5" stroke-linejoin="round"
+        d="M133 220 C100 214 80 230 75 260 C69 305 92 375 119 397
+           C131 407 146 413 159 415 C147 391 138 358 139 319
+           C140 277 148 239 133 220 Z"/>
+  <path fill="url(#rightWing)" stroke="#000" stroke-width="5" stroke-linejoin="round"
+        d="M367 220 C400 214 420 229 425 260 C431 306 408 374 381 397
+           C370 407 353 414 340 416 C354 389 361 356 360 317
+           C359 277 352 239 367 220 Z"/>
+
+  <!-- Head silhouette. -->
+  <path fill="#7a4e40"
+        d="M117 83 C132 53 158 31 187 18 L180 12 L209 9 L196 5 L233 6 L244 1
+           L249 7 L258 4 L271 8 C300 8 335 34 364 80 C352 69 343 61 333 55
+           C360 87 377 128 374 166 C371 202 345 228 314 233 C289 237 266 228 250 214
+           C235 229 213 237 187 232 C141 224 108 195 107 155 C106 128 107 104 112 83 Z"/>
+
+  <!-- Face discs. -->
+  <path fill="url(#leftFace)"
+        d="M126 81 C137 61 155 52 177 52 C211 51 233 71 237 105
+           C241 137 239 183 221 207 C208 224 190 232 169 227
+           C135 218 118 194 115 158 C113 130 118 101 126 81 Z"/>
+  <path fill="url(#rightFace)"
+        d="M253 81 C265 63 283 54 304 53 C338 52 362 73 373 106
+           C382 133 382 171 370 195 C358 219 334 231 309 233
+           C282 234 259 222 244 200 C238 184 240 107 253 81 Z"/>
+  <g fill="none" stroke="#000" stroke-width="4" stroke-linecap="round">
+    <path d="M126 82 C119 106 113 139 116 164 C119 195 137 217 169 227
+             C190 233 208 225 221 207"/>
+    <path d="M360 82 C375 103 380 134 380 163 C379 191 366 213 341 225
+             C316 239 281 233 259 216"/>
+  </g>
+  <path fill="none" stroke="#7a4e40" stroke-width="6" stroke-linecap="round"
+        d="M251 78 C243 103 241 132 241 159"/>
+
+  <!-- Eye patches and eyes. -->
+  <g stroke-linejoin="round">
+    <path fill="#f96a00" stroke="#d49c22" stroke-width="3"
+          d="M185 84 C203 84 214 100 215 123 C217 146 206 161 187 163
+             C170 163 159 150 159 128 C159 104 167 86 185 84 Z"/>
+    <path fill="#b8791e" stroke="#d49c22" stroke-width="3"
+          d="M295 86 C314 87 324 104 323 128 C322 151 312 164 293 164
+             C275 163 265 150 266 129 C266 104 277 87 295 86 Z"/>
+    <g fill="#fff" stroke="#000" stroke-width="3">
+      <ellipse cx="190" cy="134" rx="22" ry="21"/>
+      <ellipse cx="294" cy="135" rx="21" ry="21"/>
+    </g>
+    <g fill="#1b1b1b" stroke="#737373" stroke-width="2">
+      <ellipse cx="190" cy="135" rx="15" ry="16"/>
+      <ellipse cx="294" cy="136" rx="15" ry="16"/>
+    </g>
+    <g fill="#000">
+      <ellipse cx="190" cy="135" rx="11" ry="12"/>
+      <ellipse cx="294" cy="136" rx="11" ry="12"/>
+    </g>
+    <g fill="#fff">
+      <circle cx="193" cy="132" r="3.5"/>
+      <circle cx="297" cy="133" r="3.5"/>
+    </g>
+  </g>
+
+  <!-- Beak. -->
+  <path fill="#d49c22" stroke="#8d6722" stroke-width="3" stroke-linejoin="round"
+        d="M241 152 C253 152 261 161 260 174 C259 188 251 200 240 210
+           C228 199 222 188 221 174 C220 161 228 153 241 152 Z"/>
+
+  <!-- Pale feather tufts overlap the shoulders. -->
+  <g fill="#dcdbd3" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M141 225 C132 218 120 218 114 229 C124 225 129 226 133 229
+             C124 236 116 247 113 263 C122 255 129 248 135 246
+             C130 254 129 264 131 275 C137 262 142 253 150 249 Z"/>
+    <path d="M359 225 C368 217 380 219 386 229 C376 225 371 226 367 229
+             C377 237 383 248 387 263 C378 254 371 248 365 246
+             C370 255 371 264 369 275 C363 261 358 253 350 249 Z"/>
+  </g>
+
+  <!-- Chest plumage. -->
+  <use href="#bellyShape" fill="#b0b0b0"/>
+  <path clip-path="url(#bellyClip)" fill="#fefefe"
+        d="M169 264 H331 V386 C310 394 291 402 265 404 C233 408 201 403 181 392 L169 386 Z"/>
+  <use href="#bellyShape" fill="none" stroke="#000" stroke-width="5"
+       stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
