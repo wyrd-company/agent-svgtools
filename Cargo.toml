@@ -1,6 +1,6 @@
 [package]
 name = "agent-svgtools"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 rust-version = "1.88"
 description = "Machine-first CLI that closes the feedback loop for AI agents authoring SVGs from raster references: render, score (pixel + SSIM), localized diffs, and vision-friendly comparison images."

@@ -1,5 +1,5 @@
 {
-  "name": "agent-svgtools",
+  "name": "@wyrd-company/agent-svgtools",
   "version": "0.0.0",
   "description": "Machine-first CLI that scores AI-authored SVGs against raster references: render, SSIM/pixel diff, localized error regions, and vision-friendly comparison images.",
   "keywords": [
@@ -28,5 +28,9 @@
   ],
   "engines": {
     "node": ">=16"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }
