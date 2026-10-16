@@ -48,8 +48,7 @@ cat >"$formula" <<EOF
 class AgentSvgtools < Formula
   desc "Machine-first CLI scoring AI-authored SVGs against raster references"
   homepage "https://github.com/${REPOSITORY}"
-  version "${VERSION}"
-  license "MIT OR Apache-2.0"
+  license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     on_arm do
