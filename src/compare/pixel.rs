@@ -40,7 +40,14 @@ fn pixel_match_masked(a: &Prepared, b: &Prepared, mask: Option<&[bool]>) -> f64 
     }
     let mut sum = 0u64;
     let mut channels = 0usize;
-    for (i, (a_px, b_px)) in a.rgb.chunks_exact(3).zip(b.rgb.chunks_exact(3)).enumerate() {
+    for (i, (a_px, b_px)) in a
+        .rgb
+        .as_chunks::<3>()
+        .0
+        .iter()
+        .zip(b.rgb.as_chunks::<3>().0.iter())
+        .enumerate()
+    {
         if mask.is_some_and(|mask| !mask[i]) {
             continue;
         }
