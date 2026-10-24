@@ -1,6 +1,6 @@
 {
   "name": "@wyrd-company/agent-svgtools",
-  "version": "0.0.0",
+  "version": "0.2.1",
   "description": "Machine-first CLI that scores AI-authored SVGs against raster references: render, SSIM/pixel diff, localized error regions, and vision-friendly comparison images.",
   "keywords": [
     "svg",
