@@ -21,7 +21,6 @@ products:
     status: stable
     category: Agent Tooling
     order: 5
-    # DRAFT highlights, pending Bob's approval.
     highlights:
       - Scores a candidate SVG against a reference image with pixel match, SSIM and a combined score.
       - Ranks the regions that differ most, with bounding boxes in reference-image pixels.
