@@ -1,0 +1,27 @@
+$schema: https://intentional.foo/schemas/config.yml
+contract: contract-1
+settings:
+  internal-dependency-bump: patch
+  pre-1-0-bump-mapping: compatibility
+discovery:
+  managed-paths:
+  - detector: cargo-package
+    path: Cargo.toml
+    release-unit: agent-svgtools
+  - detector: npm-package
+    path: npm/package.json
+    release-unit: agent-svgtools
+release-units:
+  agent-svgtools:
+    path: .
+    projections:
+    - adapter: cargo
+      file: Cargo.toml
+      mode: committed
+    - adapter: npm
+      file: npm/package.json
+      mode: committed
+    tags:
+      primary:
+        role: primary
+        template: '{version}'
