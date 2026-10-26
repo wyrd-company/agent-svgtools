@@ -1,7 +1,7 @@
 ---
 title: Command reference
 order: 4
-docs: true
+product: agent-svgtools
 relationships:
   references: README
 ---

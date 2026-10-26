@@ -1,7 +1,7 @@
 ---
 title: The reconstruction workflow
 order: 3
-docs: true
+product: agent-svgtools
 relationships:
   uses: agent-svgtools-skill
   demonstrates: owl-reconstruction-demo

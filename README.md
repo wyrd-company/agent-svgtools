@@ -22,7 +22,13 @@ iterate-and-improve loop.
 # Homebrew
 brew install wyrd-company/tools/agent-svgtools
 
-# Build and install the latest source with Cargo
+# Cargo, from crates.io
+cargo install agent-svgtools
+
+# npx, without installing
+npx @wyrd-company/agent-svgtools --help
+
+# Cargo, the latest source
 cargo install --git https://github.com/wyrd-company/agent-svgtools.git
 ```
 

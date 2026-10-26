@@ -1,0 +1,51 @@
+# ---
+# relationships:
+#   publishes-to: wyrd-foo-agent-svgtools
+#   references: README
+# ---
+# yaml-language-server: $schema=https://wyrd.foo/schemas/docs/v1.json
+schemaVersion: 1
+assets:
+  - assets/demo.gif
+products:
+  agent-svgtools:
+    name: agent-svgtools
+    # `version` and `docs-version` are written by intentional; do not edit them.
+    version: 0.2.1
+    docs-version: 0.1.0
+    tagline: Close the loop for agents authoring SVG from images.
+    blurb: >-
+      A machine-first Rust CLI that helps agents reconstruct raster artwork as
+      maintainable SVG by inspecting structure, rendering candidates, scoring
+      visual agreement, and localizing differences.
+    status: stable
+    category: Agent Tooling
+    order: 5
+    # DRAFT highlights, pending Bob's approval.
+    highlights:
+      - Scores a candidate SVG against a reference image with pixel match, SSIM and a combined score.
+      - Ranks the regions that differ most, with bounding boxes in reference-image pixels.
+      - Writes diff heatmaps, side-by-side panels, onion-skin blends and coordinate grids for vision models.
+      - Audits SVG structure, palette, naming and vector safety, which scores alone cannot judge.
+      - Prints TOON by default, with JSON, JSONL and pretty JSON on request.
+      - Ships as a single static Rust binary with no C runtime dependencies.
+    media:
+      - src: assets/demo.gif
+        caption: Agent reconstructing an owl with agent-svgtools
+    kinds:
+      - kind: cli
+        install:
+          - method: homebrew
+            os: [macos, linux]
+            default: true
+            command: brew install wyrd-company/tools/agent-svgtools
+          - method: cargo
+            os: [macos, linux, windows]
+            command: cargo install agent-svgtools
+          - method: cargo
+            os: [macos, linux, windows]
+            label: From Git
+            command: cargo install --git https://github.com/wyrd-company/agent-svgtools.git
+          - method: npx
+            os: [macos, linux, windows]
+            command: npx @wyrd-company/agent-svgtools --help
