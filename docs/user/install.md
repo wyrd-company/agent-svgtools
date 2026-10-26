@@ -1,14 +1,13 @@
 ---
 title: Installation
 order: 2
-docs: true
+product: agent-svgtools
 install: true
 relationships:
   references: README
 ---
 
-Choose a released binary for the fastest install, or build the current source
-with Cargo.
+Choose a released binary for the fastest install, or build with Cargo.
 
 ## Homebrew
 
@@ -27,8 +26,14 @@ brew install agent-svgtools
 
 ## Build and install with Cargo
 
-This installs the latest source from the repository and requires Rust 1.88 or
-newer:
+Cargo builds from source and requires Rust 1.88 or newer. Install the latest
+published release from crates.io:
+
+```bash
+cargo install agent-svgtools
+```
+
+Or install the current source from the repository:
 
 ```bash
 cargo install --git https://github.com/wyrd-company/agent-svgtools.git
@@ -43,6 +48,15 @@ cargo build --release
 ```
 
 The local binary is written to `target/release/agent-svgtools`.
+
+## Run with npx
+
+The `@wyrd-company/agent-svgtools` npm package downloads the release binary for
+your platform and runs it, so Node.js 16 or newer is enough:
+
+```bash
+npx @wyrd-company/agent-svgtools --help
+```
 
 ## Prebuilt release binaries
 

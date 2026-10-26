@@ -21,7 +21,27 @@ release-units:
     - adapter: npm
       file: npm/package.json
       mode: committed
+    # The wyrd.foo product page shows the installed version.
+    - adapter: yaml
+      file: /docs/user/docs.yml
+      pointer: /products/agent-svgtools/version
+      mode: committed
     tags:
       primary:
         role: primary
         template: '{version}'
+  # The public docs release on their own, so the docs footer can say which
+  # docs describe which agent-svgtools version. Docs units are tag-only.
+  agent-svgtools-docs:
+    path: docs/user
+    depends-on:
+    - agent-svgtools
+    projections:
+    - adapter: yaml
+      file: /docs/user/docs.yml
+      pointer: /products/agent-svgtools/docs-version
+      mode: committed
+    tags:
+      primary:
+        role: primary
+        template: '{id}@{version}'
