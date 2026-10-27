@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16" role="img" aria-labelledby="title">
+  <title id="title">agent-svgtools</title>
+  <rect id="tile" width="128" height="128" rx="18.3" fill="#0b0b0c"/>
+  <svg x="6" y="6" width="116" height="116" viewBox="16 13.5 96 96">
+  <path id="owl-brow" d="M24 54L28 24L50 40Q64 35 78 40L100 24L104 54" fill="none" stroke="#ededef" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <g id="owl-eyes"><circle cx="42" cy="68" r="18" fill="#ededef"/><circle cx="86" cy="68" r="18" fill="#6aa5ff"/></g>
+  <path id="owl-beak" d="M58 90L64 102L70 90Z" fill="#6aa5ff" stroke="#6aa5ff" stroke-width="4" stroke-linejoin="round"/>
+  </svg>
+</svg>

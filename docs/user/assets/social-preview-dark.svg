@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <title>agent-svgtools: Close the loop for agents authoring SVG from images.</title>
+  <rect id="background" width="1280" height="640" fill="#0b0b0c"/>
+  <svg id="mark" x="110" y="120" width="400" height="400" viewBox="16 13.5 96 96">
+  <path id="owl-brow" d="M24 54L28 24L50 40Q64 35 78 40L100 24L104 54" fill="none" stroke="#ededef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g id="owl-reference-eye"><circle cx="42" cy="68" r="17" fill="none" stroke="#ededef" stroke-width="6"/><circle cx="42" cy="68" r="6.5" fill="#ededef"/></g>
+  <g id="owl-candidate-eye"><circle cx="86" cy="68" r="17" fill="none" stroke="#6aa5ff" stroke-width="6"/><circle cx="86" cy="68" r="6.5" fill="#6aa5ff"/></g>
+  <path id="owl-beak" d="M59 88L64 100L69 88Z" fill="#6aa5ff" stroke="#6aa5ff" stroke-width="3" stroke-linejoin="round"/>
+  </svg>
+  <g id="text" font-family="Geist, DejaVu Sans, Helvetica, Arial, sans-serif">
+    <text x="560" y="285" font-family="Geist Mono, DejaVu Sans Mono, ui-monospace, monospace" font-size="68" font-weight="700" letter-spacing="-1" fill="#ededef">agent-svgtools</text>
+    <rect x="566" y="319" width="104" height="8" rx="4" fill="#6aa5ff"/>
+    <text x="560" y="390" font-size="36" fill="#a6a6af">Close the loop for agents</text>
+    <text x="560" y="438" font-size="36" fill="#a6a6af">authoring SVG from images.</text>
+  </g>
+</svg>
