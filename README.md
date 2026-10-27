@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/user/assets/logo-dark.svg">
+    <img src="docs/user/assets/logo.svg" alt="agent-svgtools logo" width="160">
+  </picture>
+</p>
+
 # agent-svgtools
 
 An open-source CLI that closes the feedback loop for AI coding agents authoring

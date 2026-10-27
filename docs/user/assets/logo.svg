@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 20 96 96" role="img" aria-labelledby="title">
+  <title id="title">agent-svgtools</title>
+  <g id="owl-head" fill="none" stroke="#111113" stroke-width="6" stroke-linejoin="round"><path d="M64 112C40 108 20 82 24 54L28 24L50 40Q64 35 78 40L100 24L104 54C108 82 88 108 64 112Z"/></g>
+  <g id="owl-reference-eye"><circle cx="44" cy="66" r="14" fill="none" stroke="#111113" stroke-width="5.5"/><circle cx="44" cy="66" r="5.5" fill="#111113"/></g>
+  <g id="owl-candidate-eye"><circle cx="84" cy="66" r="14" fill="none" stroke="#0b4fa8" stroke-width="5.5"/><circle cx="84" cy="66" r="5.5" fill="#0b4fa8"/></g>
+  <path id="owl-beak" d="M58 84L64 98L70 84Z" fill="#0b4fa8" stroke="#0b4fa8" stroke-width="3" stroke-linejoin="round"/>
+</svg>

@@ -7,6 +7,10 @@
 schemaVersion: 1
 assets:
   - assets/demo.gif
+  - assets/logo.svg
+  - assets/logo-dark.svg
+  - assets/favicon.svg
+  - assets/social-image.png
 products:
   agent-svgtools:
     name: agent-svgtools
@@ -28,6 +32,10 @@ products:
       - Audits SVG structure, palette, naming and vector safety, which scores alone cannot judge.
       - Prints TOON by default, with JSON, JSONL and pretty JSON on request.
       - Ships as a single static Rust binary with no C runtime dependencies.
+    logo: assets/logo.svg
+    logo-dark: assets/logo-dark.svg
+    favicon: assets/favicon.svg
+    social-image: assets/social-image.png
     media:
       - src: assets/demo.gif
         caption: Agent reconstructing an owl with agent-svgtools

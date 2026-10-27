@@ -16,6 +16,20 @@ under `commands/`.
 Architectural decisions that matter for a change are recorded as MADR blocks in
 the commit message for that change.
 
+## Brand
+
+[`DESIGN.md`](DESIGN.md) is the design system for the logo, favicons and social
+images in `docs/user/assets/`. The SVG files are the source; the PNGs and
+`favicon.ico` are rendered from them. Render with the tool itself:
+
+```bash
+agent-svgtools render docs/user/assets/social-image.svg docs/user/assets/social-image.png
+```
+
+The social images set their text in Geist and Geist Mono, so install both
+before you render them. Validate a change to `DESIGN.md` with
+`npx @google/design.md lint DESIGN.md`.
+
 ## Releasing
 
 [Intentional](https://wyrd.foo/docs/intentional/) is the only mechanism for
