@@ -102,8 +102,9 @@ agent-svgtools gives an agent the one thing it lacks when it writes SVG: sight.
 The identity is an owl, because an owl is the animal that sees in the dark, and
 it is drawn the way the tool works: from plain geometry, with nothing hidden.
 
-- **The mark is an owl head.** One continuous outline makes the head and its
-  two ear tufts. Two ringed eyes and a beak sit inside it.
+- **The mark is an owl face.** One open line rises into two ear tufts and
+  dips between them as the brow. Two large ringed eyes and a beak hang below
+  it. The face has no closed outline.
 - **The two eyes are the two images.** The left eye, in the ink colour, is the
   reference. The right eye, in the accent colour, is the candidate. The tool
   compares them, so the mark shows them side by side.
@@ -121,7 +122,7 @@ the dark value; the `-light` token is the light value of the same role.
   an accent.
 - **Page (#0b0b0c dark, #fafafa light):** The background of the favicon tile
   and of every social image.
-- **Text (#ededef dark, #111113 light):** The ink. It draws the head outline
+- **Text (#ededef dark, #111113 light):** The ink. It draws the brow
   and the reference eye, and sets the name.
 - **Text 2 (#a6a6af dark, #4a4a52 light):** The tagline.
 
@@ -165,20 +166,19 @@ comes from the stroke weight and from the accent colour on the candidate eye.
 
 ## Shapes
 
-The shape language is outline and circle: a `stroke` (6px in a 96-unit mark)
-with round joins, and circles for both eyes.
+The shape language is outline and circle: a `stroke` (6 units in a 96-unit
+mark) with round caps and joins, and circles for both eyes.
 
-- **Head.** One closed path. The ear tufts are straight lines with round
-  joins. The cheeks and the chin are one curve.
-- **Eyes.** A ring with a solid pupil. The ring is 5.5 units wide, a little
-  lighter than the head outline, so the eyes sit inside the head and do not
-  compete with it.
-- **Beak.** A solid triangle with rounded corners.
+- **Brow.** One open path. The ear tufts are straight lines with round joins.
+  A shallow arc joins them.
+- **Eyes.** Two rings the same width as the brow, each with a solid pupil. They
+  are large and set close, so they touch the lower ends of the tufts.
+- **Beak.** A solid triangle with rounded corners, centred below the eyes.
 - **Favicon tile.** A square with a corner radius of one seventh of its side
   (`tile`, 18.3px at 128px).
-- **Favicon at 16px.** The head is solid and the eyes and the beak are cut out
-  of it, because a 6-unit outline does not survive at that size. The right
-  pupil stays in the accent colour.
+- **Favicon at 16px.** The brow is heavier and the eyes are solid discs with
+  no pupils, because a 6-unit ring does not survive at that size. The right
+  eye stays in the accent colour.
 
 ## Components
 
@@ -190,7 +190,7 @@ the favicons, which are dark.
 | `logo-light` | `logo.svg` | square | The mark for a light page. `logo` in `docs.yml`. |
 | `logo` | `logo-dark.svg` | square | The mark for a dark page. `logo-dark` in `docs.yml`. |
 | `favicon` | `favicon.svg`, `favicon-32.png` | 128 and 32px | The mark on a dark tile. `favicon` in `docs.yml`. |
-| `favicon-small` | `favicon-16.svg`, `favicon.ico` | 16px | The solid-head form for the smallest sizes. The `.ico` holds 16, 32 and 48px. |
+| `favicon-small` | `favicon-16.svg`, `favicon.ico` | 16px | The heavy-brow, solid-eye form for the smallest sizes. The `.ico` holds 16, 32 and 48px. |
 | `favicon` | `apple-touch-icon.png` | 180px | The mark on a square tile with no rounded corners. The platform rounds it. |
 | `social-image`, `social-image-light` | `social-image-dark.svg`, `social-image.svg` and `.png` | 1200x630 | The wyrd.foo social image. `social-image` in `docs.yml` is the light one. |
 | `social-preview`, `social-preview-light` | `social-preview-dark.svg`, `social-preview.svg` and `.png` | 1280x640 | The GitHub repository social preview. |
@@ -205,7 +205,7 @@ that matches their colour scheme.
 
 - Do draw the mark from the shipped SVG. Do not redraw it.
 - Do keep the two eyes in two different colours. The difference is the idea.
-- Do use the filled head below 24px, and the outlined head at 24px and above.
+- Do use the solid-eye form below 24px, and the ringed-eye form at 24px and above.
 - Do keep the clear space around the mark.
 - Do write the name in lower case with the hyphen.
 - Don't add a third colour, a gradient or a shadow.
