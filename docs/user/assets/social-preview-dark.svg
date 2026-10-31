@@ -1,12 +1,88 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
   <title>agent-svgtools: Close the loop for agents authoring SVG from images.</title>
   <rect id="background" width="1280" height="640" fill="#0b0b0c"/>
-  <svg id="mark" x="110" y="120" width="400" height="400" viewBox="16 13.5 96 96">
-  <path id="owl-brow" d="M24 54L28 24L50 40Q64 35 78 40L100 24L104 54" fill="none" stroke="#ededef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <g id="owl-reference-eye"><circle cx="42" cy="68" r="17" fill="none" stroke="#ededef" stroke-width="6"/><circle cx="42" cy="68" r="6.5" fill="#ededef"/></g>
-  <g id="owl-candidate-eye"><circle cx="86" cy="68" r="17" fill="none" stroke="#6aa5ff" stroke-width="6"/><circle cx="86" cy="68" r="6.5" fill="#6aa5ff"/></g>
-  <path id="owl-beak" d="M59 88L64 100L69 88Z" fill="#6aa5ff" stroke="#6aa5ff" stroke-width="3" stroke-linejoin="round"/>
-  </svg>
+  <svg id="mark" x="110" y="120" width="400" height="400" viewBox="86 -29 310 310">
+  <defs>
+    <radialGradient id="head-fill" cx="200" cy="40" r="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#97654f"/>
+      <stop offset=".5" stop-color="#7a4e40"/>
+      <stop offset="1" stop-color="#54342a"/>
+    </radialGradient>
+    <radialGradient id="disc-left-fill" cx="160" cy="96" r="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fbf9f3"/>
+      <stop offset=".55" stop-color="#efebe0"/>
+      <stop offset="1" stop-color="#d6ccb3"/>
+    </radialGradient>
+    <radialGradient id="disc-right-fill" cx="290" cy="96" r="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3f1ea"/>
+      <stop offset=".55" stop-color="#e3dfd3"/>
+      <stop offset="1" stop-color="#c7bda4"/>
+    </radialGradient>
+    <linearGradient id="disc-top-shade" x1="0" y1="50" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5a3a2c" stop-opacity=".14"/>
+      <stop offset="1" stop-color="#5a3a2c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="iris-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff8414"/>
+      <stop offset="1" stop-color="#e2650a"/>
+    </linearGradient>
+    <linearGradient id="lid-shade" x1="0" y1="88" x2="0" y2="118" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a8460a" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#a8460a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pupil-fill" cx=".45" cy=".4" r=".6">
+      <stop offset="0" stop-color="#2a1b16"/>
+      <stop offset=".75" stop-color="#0e0907"/>
+      <stop offset="1" stop-color="#0b0706"/>
+    </radialGradient>
+    <linearGradient id="beak-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7c23c"/>
+      <stop offset="1" stop-color="#d48f16"/>
+    </linearGradient>
+    <clipPath id="disc-left-clip"><path d="M226 60C202 46 160 50 138 76C120 98 114 130 116 160C118 196 138 224 172 232C200 238 222 230 236 214C240 196 239 176 238 156C237 124 236 92 232 74C230 66 229 62 226 60Z"/></clipPath>
+    <clipPath id="disc-right-clip"><path d="M 256 60 C 280 46 322 50 344 76 C 362 98 368 130 366 160 C 364 196 344 224 310 232 C 282 238 260 230 246 214 C 242 196 243 176 244 156 C 245 124 246 92 250 74 C 252 66 253 62 256 60 Z"/></clipPath>
+    <clipPath id="left-iris-clip"><path d="M188 94C205 94 217 106 217 124C217 146 205 158 188 158C171 158 159 146 159 124C159 106 171 94 188 94Z"/></clipPath>
+    <clipPath id="right-iris-clip"><path d="M294 94C311 94 323 106 323 124C323 146 311 158 294 158C277 158 265 146 265 124C265 106 277 94 294 94Z"/></clipPath>
+  </defs>
+  <path id="keyline" d="M241 26C224 26 208 29 196 34C170 30 140 24 114 4C120 26 134 48 150 60C124 84 106 120 104 160C103 190 118 216 156 232C184 248 214 256 241 256C268 256 298 248 326 232C364 216 379 190 378 160C376 120 358 84 332 60C348 48 362 26 368 4C342 24 312 30 286 34C274 29 258 26 241 26Z" fill="#f3e9da" stroke="#f3e9da" stroke-width="14" stroke-linejoin="round"/>
+
+  <path id="head" d="M241 26C224 26 208 29 196 34C170 30 140 24 114 4C120 26 134 48 150 60C124 84 106 120 104 160C103 190 118 216 156 232C184 248 214 256 241 256C268 256 298 248 326 232C364 216 379 190 378 160C376 120 358 84 332 60C348 48 362 26 368 4C342 24 312 30 286 34C274 29 258 26 241 26Z" fill="url(#head-fill)" stroke="#1e120e" stroke-width="6" stroke-linejoin="round"/>
+  <g id="tuft-feathers" fill="none" stroke="#54342a" stroke-width="2.5" stroke-linecap="round" opacity=".6">
+    <path d="M150 56C140 42 130 26 122 14M170 38C158 30 144 24 132 18"/>
+    <path d="M 332 56 C 342 42 352 26 360 14 M 312 38 C 324 30 338 24 350 18"/>
+  </g>
+
+  <g id="facial-disc">
+    <g id="left-disc">
+      <path d="M226 60C202 46 160 50 138 76C120 98 114 130 116 160C118 196 138 224 172 232C200 238 222 230 236 214C240 196 239 176 238 156C237 124 236 92 232 74C230 66 229 62 226 60Z" fill="url(#disc-left-fill)"/>
+      <path d="M226 60C202 46 160 50 138 76C120 98 114 130 116 160C118 196 138 224 172 232C200 238 222 230 236 214C240 196 239 176 238 156C237 124 236 92 232 74C230 66 229 62 226 60Z" fill="none" stroke="url(#disc-top-shade)" stroke-width="14" clip-path="url(#disc-left-clip)"/>
+    </g>
+    <g id="right-disc">
+      <path d="M 256 60 C 280 46 322 50 344 76 C 362 98 368 130 366 160 C 364 196 344 224 310 232 C 282 238 260 230 246 214 C 242 196 243 176 244 156 C 245 124 246 92 250 74 C 252 66 253 62 256 60 Z" fill="url(#disc-right-fill)"/>
+      <path d="M 256 60 C 280 46 322 50 344 76 C 362 98 368 130 366 160 C 364 196 344 224 310 232 C 282 238 260 230 246 214 C 242 196 243 176 244 156 C 245 124 246 92 250 74 C 252 66 253 62 256 60 Z" fill="none" stroke="url(#disc-top-shade)" stroke-width="14" clip-path="url(#disc-right-clip)"/>
+    </g>
+  </g>
+
+  <g id="left-eye" transform="translate(188 126) rotate(-2) scale(1.12) translate(-188 -126)">
+    <path id="left-iris" d="M188 94C205 94 217 106 217 124C217 146 205 158 188 158C171 158 159 146 159 124C159 106 171 94 188 94Z" fill="url(#iris-fill)"/>
+    <path id="left-lid-shadow" d="M154 88H222V118H154Z" fill="url(#lid-shade)" clip-path="url(#left-iris-clip)"/>
+    <circle id="left-eye-rim" cx="191.5" cy="130.5" r="20" fill="#fff8ec"/>
+    <circle id="left-pupil" cx="189" cy="127.5" r="19" fill="url(#pupil-fill)"/>
+    <circle id="left-catchlight" cx="183" cy="121" r="4.6" fill="#fff"/>
+  </g>
+  <g id="right-eye" transform="translate(294 123) rotate(6) scale(1.16) translate(-294 -126)">
+    <path id="right-iris" d="M294 94C311 94 323 106 323 124C323 146 311 158 294 158C277 158 265 146 265 124C265 106 277 94 294 94Z" fill="url(#iris-fill)"/>
+    <path id="right-lid-shadow" d="M260 88H328V118H260Z" fill="url(#lid-shade)" clip-path="url(#right-iris-clip)"/>
+    <circle id="right-eye-rim" cx="293.5" cy="130.5" r="20" fill="#fff8ec"/>
+    <circle id="right-pupil" cx="291" cy="127.5" r="19" fill="url(#pupil-fill)"/>
+    <circle id="right-catchlight" cx="285" cy="121" r="4.6" fill="#fff"/>
+  </g>
+
+  <g id="beak">
+    <path d="M224 158C224 151 234 147 241 147C248 147 258 151 258 158C258 172 250 188 243 197C242 199 240 199 239 197C232 188 224 172 224 158Z" fill="url(#beak-fill)" stroke="#54342a" stroke-width="3" stroke-linejoin="round"/>
+    <path id="beak-highlight" d="M230 158C230 154 235 152 239 152C236 160 234 168 236 176C232 170 230 164 230 158Z" fill="#ffe08a" opacity=".7"/>
+  </g>
+</svg>
   <g id="text" font-family="Geist, DejaVu Sans, Helvetica, Arial, sans-serif">
     <text x="560" y="285" font-family="Geist Mono, DejaVu Sans Mono, ui-monospace, monospace" font-size="68" font-weight="700" letter-spacing="-1" fill="#ededef">agent-svgtools</text>
     <rect x="566" y="319" width="104" height="8" rx="4" fill="#6aa5ff"/>

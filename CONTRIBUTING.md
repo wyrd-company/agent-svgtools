@@ -19,16 +19,21 @@ the commit message for that change.
 ## Brand
 
 [`DESIGN.md`](DESIGN.md) is the design system for the logo, favicons and social
-images in `docs/user/assets/`. The SVG files are the source; the PNGs and
-`favicon.ico` are rendered from them. Render with the tool itself:
+images in `docs/user/assets/`. Their source is [`demo/logo/`](demo/logo/):
+`gen.mjs` draws the owl and `assets.mjs` builds the assets from it. Do not edit
+the files in `docs/user/assets/` by hand. Rebuild them, PNGs and `favicon.ico`
+included:
 
 ```bash
-agent-svgtools render docs/user/assets/social-image.svg docs/user/assets/social-image.png
+demo/logo/build.sh v1
 ```
 
-The social images set their text in Geist and Geist Mono, so install both
-before you render them. Validate a change to `DESIGN.md` with
-`npx @google/design.md lint DESIGN.md`.
+To revise the owl, edit `gen.mjs` and build the next version, for example
+`demo/logo/build.sh v2`; see [`demo/logo/README.md`](demo/logo/README.md).
+
+The build needs node, agent-svgtools and ImageMagick. The social images set
+their text in Geist and Geist Mono, so install both before you build. Validate a
+change to `DESIGN.md` with `npx @google/design.md lint DESIGN.md`.
 
 ## Releasing
 

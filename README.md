@@ -70,6 +70,9 @@ preserves the SVG from each real agent revision, recomputes its foreground
 score during playback, and finishes with a structural audit of the final SVG.
 The [owl benchmark capsule](benchmarks/raster-to-svg/owl/README.md) preserves
 the skill and no-skill specimens, normalized measurements, and conclusions.
+The logo above is one too: an agent drew it in SVG from the same owl and
+checked every round with agent-svgtools. [`demo/logo/`](demo/logo/README.md)
+keeps each version and how it was made.
 
 ## Quick start
 
