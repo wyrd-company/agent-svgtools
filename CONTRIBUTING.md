@@ -16,6 +16,25 @@ under `commands/`.
 Architectural decisions that matter for a change are recorded as MADR blocks in
 the commit message for that change.
 
+## Brand
+
+[`DESIGN.md`](DESIGN.md) is the design system for the logo, favicons and social
+images in `docs/user/assets/`. Their source is [`demo/logo/`](demo/logo/):
+`gen.mjs` draws the owl and `assets.mjs` builds the assets from it. Do not edit
+the files in `docs/user/assets/` by hand. Rebuild them, PNGs and `favicon.ico`
+included:
+
+```bash
+demo/logo/build.sh v1
+```
+
+To revise the owl, edit `gen.mjs` and build the next version, for example
+`demo/logo/build.sh v2`; see [`demo/logo/README.md`](demo/logo/README.md).
+
+The build needs node, agent-svgtools and ImageMagick. The social images set
+their text in Geist and Geist Mono, so install both before you build. Validate a
+change to `DESIGN.md` with `npx @google/design.md lint DESIGN.md`.
+
 ## Releasing
 
 [Intentional](https://wyrd.foo/docs/intentional/) is the only mechanism for

@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/user/assets/logo-dark.svg">
+    <img src="docs/user/assets/logo.svg" alt="agent-svgtools logo" width="160">
+  </picture>
+</p>
+
 # agent-svgtools
 
 An open-source CLI that closes the feedback loop for AI coding agents authoring
@@ -63,6 +70,9 @@ preserves the SVG from each real agent revision, recomputes its foreground
 score during playback, and finishes with a structural audit of the final SVG.
 The [owl benchmark capsule](benchmarks/raster-to-svg/owl/README.md) preserves
 the skill and no-skill specimens, normalized measurements, and conclusions.
+The logo above is one too: an agent drew it in SVG from the same owl and
+checked every round with agent-svgtools. [`demo/logo/`](demo/logo/README.md)
+keeps each version and how it was made.
 
 ## Quick start
 
