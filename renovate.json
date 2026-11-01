@@ -5,7 +5,7 @@
   ],
   "packageRules": [
     {
-      "description": "visioncortex must match the version vtracer depends on; it moves only with vtracer.",
+      "description": "Group vtracer and visioncortex updates. visioncortex must match the version vtracer depends on. Patch updates may still arrive on their own.",
       "matchManagers": ["cargo"],
       "matchPackageNames": ["vtracer", "visioncortex"],
       "groupName": "vtracer"
