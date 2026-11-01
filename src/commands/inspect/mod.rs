@@ -13,6 +13,8 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::PathBuf;
 
+const XLINK_NS: &str = "http://www.w3.org/1999/xlink";
+
 const GRAPHIC_TAGS: &[&str] = &[
     "circle", "ellipse", "line", "path", "polygon", "polyline", "rect", "text", "use",
 ];
@@ -88,7 +90,7 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
         .collect();
     let path_commands = authored_paths
         .iter()
-        .map(|node| count_path_commands(node.attribute("d").unwrap_or_default()))
+        .map(|node| count_path_commands(svg_attribute(**node, "d").unwrap_or_default()))
         .sum();
 
     let referenced_ids: BTreeSet<_> = elements
@@ -103,11 +105,9 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
             let tag = node.tag_name().name();
             (tag == "g" || GRAPHIC_TAGS.contains(&tag))
                 && (!has_ancestor(**node, "defs")
-                    || node
-                        .attribute("id")
-                        .is_some_and(|id| referenced_ids.contains(id)))
+                    || svg_attribute(**node, "id").is_some_and(|id| referenced_ids.contains(id)))
         })
-        .filter_map(|node| node.attribute("id"))
+        .filter_map(|node| svg_attribute(*node, "id"))
         .filter(|id| !id.trim().is_empty())
         .map(str::to_owned)
         .collect();
@@ -132,6 +132,8 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
     let scripted_attributes: BTreeSet<_> = elements
         .iter()
         .flat_map(|node| node.attributes())
+        // The safety audit is conservative: an `on*` attribute in any
+        // namespace is reported.
         .map(|attribute| attribute.name().to_ascii_lowercase())
         .filter(|name| name.starts_with("on"))
         .collect();
@@ -140,8 +142,10 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
         .flat_map(|node| node.attributes())
         .filter_map(|attribute| {
             let value = attribute.value().trim();
-            (is_external(value) || (attribute.name() == "href" && !value.starts_with('#')))
-                .then(|| value.to_owned())
+            // The safety audit is conservative: every value is scanned for
+            // URLs, and a non-fragment `href` in any namespace is reported.
+            let is_href = attribute.name() == "href";
+            (is_external(value) || (is_href && !value.starts_with('#'))).then(|| value.to_owned())
         })
         .chain(
             elements
@@ -163,9 +167,9 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
 
     let report = InspectReport {
         svg: args.svg.display().to_string(),
-        view_box: root.attribute("viewBox").map(str::to_owned),
-        width: root.attribute("width").map(str::to_owned),
-        height: root.attribute("height").map(str::to_owned),
+        view_box: svg_attribute(root, "viewBox").map(str::to_owned),
+        width: svg_attribute(root, "width").map(str::to_owned),
+        height: svg_attribute(root, "height").map(str::to_owned),
         structure: Structure {
             authored_graphics,
             authored_paths: authored_paths.len(),
@@ -233,20 +237,29 @@ fn is_authored_graphic(node: Node<'_, '_>) -> bool {
 }
 
 fn presentation_value(node: Node<'_, '_>, name: &str) -> Option<String> {
-    node.attribute(name)
+    svg_attribute(node, name)
         .map(|value| value.trim().to_ascii_lowercase())
         .or_else(|| {
-            node.attribute("style")?.split(';').find_map(|declaration| {
-                let (property, value) = declaration.split_once(':')?;
-                (property.trim().eq_ignore_ascii_case(name))
-                    .then(|| value.trim().to_ascii_lowercase())
-            })
+            svg_attribute(node, "style")?
+                .split(';')
+                .find_map(|declaration| {
+                    let (property, value) = declaration.split_once(':')?;
+                    (property.trim().eq_ignore_ascii_case(name))
+                        .then(|| value.trim().to_ascii_lowercase())
+                })
         })
 }
 
-fn href<'a>(node: &'a Node<'a, 'a>) -> Option<&'a str> {
-    node.attribute("href")
-        .or_else(|| node.attribute(("http://www.w3.org/1999/xlink", "href")))
+// Unprefixed SVG attributes have no namespace, including under a default SVG
+// namespace. roxmltree 0.21's string lookup matches any namespace instead.
+fn svg_attribute<'a>(node: Node<'a, '_>, name: &str) -> Option<&'a str> {
+    node.attributes()
+        .find(|attribute| attribute.namespace().is_none() && attribute.name() == name)
+        .map(|attribute| attribute.value())
+}
+
+fn href<'a>(node: &Node<'a, '_>) -> Option<&'a str> {
+    svg_attribute(*node, "href").or_else(|| node.attribute((XLINK_NS, "href")))
 }
 
 fn count_path_commands(data: &str) -> usize {
@@ -263,10 +276,10 @@ fn count_path_commands(data: &str) -> usize {
 fn presentation_colors(node: Node<'_, '_>) -> Vec<String> {
     let mut values = ["fill", "stroke", "stop-color"]
         .into_iter()
-        .filter_map(|name| node.attribute(name))
+        .filter_map(|name| svg_attribute(node, name))
         .filter_map(normalize_color)
         .collect::<Vec<_>>();
-    if let Some(style) = node.attribute("style") {
+    if let Some(style) = svg_attribute(node, "style") {
         values.extend(style.split(';').filter_map(|declaration| {
             let (name, value) = declaration.split_once(':')?;
             matches!(name.trim(), "fill" | "stroke" | "stop-color")

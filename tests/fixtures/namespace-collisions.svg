@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:custom="urn:example:metadata" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><defs><path id="first" d="M0 0H16V16H0Z"/><path id="second" d="M16 16H32V32H16Z"/></defs><use xlink:href="#first" href="#second"/><path custom:d="M1 1L2 2" custom:fill="#ff0000" d="M4 4H8V8H4Z" fill="#0000ff"/></svg>

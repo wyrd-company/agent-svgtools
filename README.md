@@ -123,6 +123,13 @@ artifacts:
 | `inspect <candidate.svg>` | Audit viewBox, authored graphics, paths/commands, named components, authored colors, and external or embedded resources. |
 | `skill` | Print the agent-facing skill document (Markdown). |
 
+`inspect` reads unprefixed SVG attributes only from the no-namespace attribute.
+Reference resolution prefers `href` and falls back to XLink `href` only when
+`href` is absent. Other namespaces do not supply SVG attribute values. The
+safety audit is conservative and ignores namespaces: it reports `on*`
+attributes and non-fragment `href` values in any namespace, and scans every
+attribute value for external URLs.
+
 `judge`/`compare` artifact flags: `--diff-image`, `--side-by-side`, `--blend`,
 `--grid`, `--foreground`, `--threshold <0-100>`, `--block`, `--max-regions`.
 Artifacts are only ever written to the explicit paths you pass — never to
