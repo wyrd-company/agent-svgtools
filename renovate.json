@@ -2,5 +2,20 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>wyrd-company/.github:renovate-config"
+  ],
+  "packageRules": [
+    {
+      "description": "visioncortex must match the version vtracer depends on; it moves only with vtracer.",
+      "matchManagers": ["cargo"],
+      "matchPackageNames": ["vtracer", "visioncortex"],
+      "groupName": "vtracer"
+    },
+    {
+      "description": "Block visioncortex major/minor bumps; raise the pin by hand in a vtracer update PR when vtracer moves to a new visioncortex.",
+      "matchManagers": ["cargo"],
+      "matchPackageNames": ["visioncortex"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    }
   ]
 }
