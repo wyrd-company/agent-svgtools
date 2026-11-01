@@ -267,13 +267,12 @@ score is below `--threshold` or the arguments are not valid.
 ```toon
 scores:
   scope: foreground
-  pixel_match: 96.4
-  ssim: 88.1
-  combined: 92.25
-warnings[0]:
-regions[2]{x,y,width,height,error}:
-  192,64,128,96,41.2
-  0,416,96,96,33.7
+  pixel_match: 92.81
+  ssim: 93
+  combined: 92.91
+warnings: []
+regions[1]{x,y,width,height,error}:
+  64,64,384,384,31.53
 ```
 
 - `scope`: `foreground` or `canvas`. Compare scores only when the scope is the
