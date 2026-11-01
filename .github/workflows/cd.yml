@@ -20,7 +20,7 @@ jobs:
       tag: ${{ steps.version.outputs.tag }}
       version: ${{ steps.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: version
         shell: bash
         run: |
@@ -57,7 +57,7 @@ jobs:
       VERSION: ${{ needs.version.outputs.version }}
       TARGET: ${{ matrix.target }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
@@ -132,7 +132,7 @@ jobs:
     needs: [version, build, release]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - name: cargo publish
         run: cargo publish --token "${CARGO_REGISTRY_TOKEN}"
@@ -144,7 +144,7 @@ jobs:
     needs: [version, build, release]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -162,7 +162,7 @@ jobs:
     needs: [version, build, release]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: version
         shell: bash
         run: |
@@ -174,7 +174,7 @@ jobs:
           path: artifacts
           merge-multiple: true
       - name: Checkout tap repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: wyrd-company/homebrew-tools
           path: homebrew-tools
