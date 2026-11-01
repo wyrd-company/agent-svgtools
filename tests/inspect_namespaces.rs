@@ -63,8 +63,14 @@ fn inspect_ignores_metadata_attribute_names() {
             report["palette"]["colors"],
             json!(["#000000", "#0000ff", "#00ff00", "#ffffff"])
         );
-        assert_eq!(report["safety"]["scripted_attributes"], json!([]));
-        assert_eq!(report["safety"]["external_references"], json!([]));
+        // Metadata attributes do not supply SVG values, but the safety audit
+        // still reports them.
+        assert_eq!(report["safety"]["scripted_attributes"], json!(["onload"]));
+        assert_eq!(
+            report["safety"]["external_references"],
+            json!(["metadata.svg"])
+        );
+        assert_eq!(report["safety"]["vector_only"], false);
     }
     let report = inspect(
         r#"<svg xmlns:custom="urn:example:metadata" custom:width="32" custom:height="32" custom:viewBox="0 0 32 32"/>"#,
@@ -100,4 +106,31 @@ fn inspect_resolves_href_by_namespace_and_svg_precedence() {
         ));
         assert_eq!(report["naming"]["ids"], expected, "{attributes}");
     }
+}
+
+#[test]
+fn inspect_safety_audit_reports_scripts_and_hrefs_in_any_namespace() {
+    let report = inspect(
+        r##"<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns:custom="urn:example:metadata">
+          <rect custom:onload="a()" svg:onclick="b()" width="1" height="1"/>
+          <use custom:href="evil.svg"/>
+        </svg>"##,
+    );
+    assert_eq!(
+        report["safety"]["scripted_attributes"],
+        json!(["onclick", "onload"])
+    );
+    assert_eq!(report["safety"]["external_references"], json!(["evil.svg"]));
+    assert_eq!(report["safety"]["vector_only"], false);
+}
+
+#[test]
+fn inspect_matches_xlink_by_namespace_not_prefix() {
+    let report = inspect(
+        r##"<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="urn:example:not-xlink">
+          <defs><path id="first"/></defs><use xlink:href="#first"/>
+        </svg>"##,
+    );
+    assert_eq!(report["naming"]["ids"], json!([]));
 }

@@ -132,7 +132,8 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
     let scripted_attributes: BTreeSet<_> = elements
         .iter()
         .flat_map(|node| node.attributes())
-        .filter(|attribute| attribute.namespace().is_none())
+        // The safety audit is conservative: an `on*` attribute in any
+        // namespace is reported.
         .map(|attribute| attribute.name().to_ascii_lowercase())
         .filter(|name| name.starts_with("on"))
         .collect();
@@ -141,10 +142,9 @@ pub fn run(args: &Args, ctx: &OutputCtx) -> Result<i32> {
         .flat_map(|node| node.attributes())
         .filter_map(|attribute| {
             let value = attribute.value().trim();
-            // Keep scanning all values for URLs, but only SVG/XLink href
-            // attributes carry implicit external-reference semantics.
-            let is_href = attribute.name() == "href"
-                && matches!(attribute.namespace(), None | Some(XLINK_NS));
+            // The safety audit is conservative: every value is scanned for
+            // URLs, and a non-fragment `href` in any namespace is reported.
+            let is_href = attribute.name() == "href";
             (is_external(value) || (is_href && !value.starts_with('#'))).then(|| value.to_owned())
         })
         .chain(

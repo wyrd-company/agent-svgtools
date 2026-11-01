@@ -126,8 +126,10 @@ artifacts:
 
 `inspect` reads unprefixed SVG attributes only from the no-namespace attribute.
 Reference resolution prefers `href` and falls back to XLink `href` only when
-`href` is absent. Other namespaces do not supply SVG attribute values; the
-safety audit still scans all attribute values for external URLs.
+`href` is absent. Other namespaces do not supply SVG attribute values. The
+safety audit is conservative and ignores namespaces: it reports `on*`
+attributes and non-fragment `href` values in any namespace, and scans every
+attribute value for external URLs.
 
 `judge`/`compare` artifact flags: `--diff-image`, `--side-by-side`, `--blend`,
 `--grid`, `--foreground`, `--threshold <0-100>`, `--block`, `--max-regions`.
