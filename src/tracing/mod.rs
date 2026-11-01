@@ -8,8 +8,8 @@ use anyhow::Result;
 use image::RgbaImage;
 use serde::Serialize;
 use std::collections::HashSet;
-use visioncortex::{ColorImage, PathSimplifyMode};
-use vtracer::{ColorMode, Config, Hierarchical};
+use visioncortex::PathSimplifyMode;
+use vtracer::{ColorImage, ColorMode, Config, Hierarchical};
 
 /// Curve-fitting mode for traced paths.
 #[derive(Debug, Clone, Copy, clap::ValueEnum)]
