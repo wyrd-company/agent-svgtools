@@ -35,7 +35,7 @@ dependencies = [
  "serde_json",
  "tempfile",
  "toon-format",
- "visioncortex",
+ "visioncortex 0.9.3",
  "vtracer",
 ]
 
@@ -2309,6 +2309,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "visioncortex"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "84af9c2ece99261bf0a14cff5162221350b7288e33a78534017ebf07c9389bff"
+dependencies = [
+ "bit-vec",
+ "flo_curves",
+ "num-traits",
+]
+
+[[package]]
 name = "vtracer"
 version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2317,7 +2328,7 @@ dependencies = [
  "clap 2.34.0",
  "fastrand",
  "image 0.23.14",
- "visioncortex",
+ "visioncortex 0.8.10",
 ]
 
 [[package]]
