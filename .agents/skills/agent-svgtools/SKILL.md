@@ -44,6 +44,17 @@ Decide whether the target supports clean reconstruction. Icons, logos, badges,
 and flat illustrations are strong candidates. Ask whether a simplified vector
 interpretation is acceptable for photography, texture, or painted effects.
 
+These signs show that a faithful clean vector is not a realistic target:
+
+- photographic gradients, fine texture, or painted shading
+- many colors that do not reduce to a small palette
+- compression artifacts or a resolution too low to show the real edges
+- small antialiased text
+- a match that is only possible by embedding or approximating a bitmap
+
+Tell the user before you draw, and agree that a simplified interpretation is
+the deliverable.
+
 ### 2. Decompose before drawing
 
 Make a short back-to-front component map. For each meaningful part, note:
@@ -93,6 +104,12 @@ Do not use `<image>`, data URLs, external resources, scripts, canvas, or raster
 payloads. Capture component identity, proportion, and layer order before refining
 edges.
 
+Recreate text with a `<text>` element and an available font that is near the
+reference. Keep the text editable. Convert the text to paths only when the
+letter shapes matter more than editability, for example in a wordmark with
+custom letterforms. Do the conversion last, after the text is in its final
+position.
+
 Name every meaningful visible component or enclosing group. Do not add dummy
 IDs to meet a count. Keep normal flat-illustration complexity below roughly 50
 authored graphics, 32 authored paths, and 240 path commands unless the reference
@@ -126,6 +143,22 @@ Inspect every generated artifact. Use them for different questions:
 - score: whether a focused edit moved the rendering overall
 
 Generating an image without viewing it is not feedback.
+
+Read the scores together:
+
+- **High pixel match, low SSIM:** the colors are near, but edges or shapes are
+  out of position. Look for ghosting in the blend.
+- **Low pixel match, high SSIM:** the shapes are correct, but the fills or
+  contrast are wrong. Compare your fills with `colors`.
+- **One dominant region:** one component is missing or out of position. Fix it
+  before you refine anything else.
+- **Many small regions along edges:** antialiasing or stroke width differences.
+  These are usually low priority.
+- **A dimension or aspect warning:** the `viewBox` does not match the
+  reference. Fix it first, because all other scores are measured after the
+  render is stretched.
+- **A high canvas score with visible defects:** empty background dilutes the
+  score. Use `--foreground` and trust the artifacts.
 
 ### 6. Revise one named component at a time
 
@@ -199,3 +232,62 @@ Before handing off:
 
 Keep a concise work log when requested: commands, scores, visual observations,
 and the reason for each focused revision.
+
+## Command reference
+
+Output is TOON by default. Use `--format json` for JSON, `--pretty` for
+indented JSON, or `--format jsonl` for one header record and then one record
+for each list item, such as each region from `judge`.
+
+Exit codes: `0` success, `1` I/O or processing error, `2` the `combined`
+score is below `--threshold` or the arguments are not valid.
+
+| Command | Use |
+| --- | --- |
+| `judge <reference> <svg>` | Render the SVG at the reference size and score it. |
+| `compare <image-a> <image-b>` | Score two rasters. `image-b` is resized to `image-a`. |
+| `render <svg> <out.png>` | Rasterize. Flags: `--width`, `--height`, `--scale`, `--background`. |
+| `colors <image>` | Dominant palette. Flag: `--max-colors`. |
+| `inspect <svg>` | Structure, palette, naming, and safety counts. |
+| `trace <image> [out.svg]` | Automatic trace. Use only as the trace policy permits. |
+| `skill` | Print this document. |
+
+`judge` and `compare` share these flags:
+
+- `--foreground`: score only pixels that are non-transparent in either image,
+  and include alpha agreement.
+- `--side-by-side`, `--blend`, `--diff-image <path>`: write that artifact to
+  the path you give. Nothing is written implicitly.
+- `--grid`: put coordinate lines and axis labels on the artifacts.
+- `--threshold <n>`: exit `2` when `combined` is below `n`.
+- `--block <px>`, `--max-regions <n>`: control the size and number of regions.
+
+`judge` output:
+
+```toon
+scores:
+  scope: foreground
+  pixel_match: 96.4
+  ssim: 88.1
+  combined: 92.25
+warnings[0]:
+regions[2]{x,y,width,height,error}:
+  192,64,128,96,41.2
+  0,416,96,96,33.7
+```
+
+- `scope`: `foreground` or `canvas`. Compare scores only when the scope is the
+  same.
+- `pixel_match`: color agreement for each channel, 0 to 100.
+- `ssim`: structural similarity, 0 to 100. It is sensitive to edges and shape.
+- `combined`: a summary of the two. It is not an acceptance criterion alone.
+- `regions`: boxes in reference pixel coordinates, worst first, each with a
+  local `error` from 0 to 100.
+- `warnings`: dimension and aspect ratio mismatches.
+
+`inspect` reports `view_box`; `structure` (`authored_graphics`,
+`authored_paths`, `path_commands`, `groups`, `reusable_definitions`);
+`naming` (`named_components`, `ids`); `palette` (`count`, `colors`); and
+`safety` (`vector_only`, `prohibited_tags`, `scripted_attributes`,
+`external_references`, `embedded_data`). Compare `structure` and `palette`
+with the budgets in step 4.
